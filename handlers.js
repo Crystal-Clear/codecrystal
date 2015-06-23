@@ -9,7 +9,7 @@ function configMake(request){
   return {
     hostname: "github.com",
     method: "POST",
-    path: url,
+    path: url
   };
 }
 
@@ -29,30 +29,56 @@ function getAccessToken(request, reply) {
           type: "oauth",
           token: access
       });
-      // github.repos.getAll({}, function(err, data) {
-      //   reply(data);
-      // });
     });
   });
 
   req2.end();
 }
 
+// function getFiles(commits) {
+//   var contents = [];
+//   commits.forEach(function(elem, index) {
+//     var options = {
+//       user: elem.user,
+//       repo: elem.repo
+//     };
+//     github.repos.getContent(options, function(err, result){
+//       contents[index] = result;
+//     });
+//   }
+// }
+
 module.exports = {
 
   login: getAccessToken,
 
   getRepos: function(request, reply) {
-
     github.repos.getAll({}, function(err, data) {
       var repos = data.map(function(elem){
         return elem.full_name;
       });
-      console.log(repos);
+
+      var files = [];
+      var counter = 0;
+      repos.forEach( function(elem, index) {
+        var options = {
+          user: elem.split('/')[0],
+          repo: elem.split('/')[1]
+          // ref: "heads/master"
+        };
+        github.repos.getContent(options, function(err, result) {
+          console.log(err, result);
+          files[index] = { user: options.user, repo: options.repo, files: result };
+          if(++counter === repos.length) {
+            console.log(files);
+          }
+        });
+
+      });
     });
-    // github.getReference(options, )
+
+
+
   }
-
-
 
 };
