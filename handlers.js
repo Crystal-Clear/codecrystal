@@ -35,18 +35,23 @@ function getAccessToken(request, reply) {
   req2.end();
 }
 
-// function getFiles(commits) {
-//   var contents = [];
-//   commits.forEach(function(elem, index) {
-//     var options = {
-//       user: elem.user,
-//       repo: elem.repo
-//     };
-//     github.repos.getContent(options, function(err, result){
-//       contents[index] = result;
-//     });
-//   }
-// }
+function getFiles(commits) {
+  var contents = [];
+  commits.forEach(function(elem, index) {
+    if (elem === '') { return ;}
+    var options = {
+      user: elem.user,
+      repo: elem.repo,
+      sha: elem.sha,
+      recursive: true
+    };
+    github.gitdata.getTree(options, function(err, result){
+      console.log(err, result);
+      contents[index] = result;
+      // console.log(contents);
+    });
+  });
+}
 
 module.exports = {
 
@@ -58,27 +63,32 @@ module.exports = {
         return elem.full_name;
       });
 
-      var files = [];
+      var commits = [];
       var counter = 0;
       repos.forEach( function(elem, index) {
         var options = {
           user: elem.split('/')[0],
-          repo: elem.split('/')[1]
-          // ref: "heads/master"
+          repo: elem.split('/')[1],
+          ref: "heads/master"
         };
-        github.repos.getContent(options, function(err, result) {
-          console.log(err, result);
-          files[index] = { user: options.user, repo: options.repo, files: result };
-          if(++counter === repos.length) {
-            console.log(files);
+        github.gitdata.getReference(options, function(err, result) {
+          // console.log(err, result);
+          if(err) {
+            if(++counter === repos.length) {
+                  getFiles(commits);
+            }
+            else {return; }
           }
+          else {
+            commits[index] = { user: options.user, repo: options.repo,  sha: result.object.sha };
+          if(++counter === repos.length) {
+            getFiles(commits);
+          }
+        }
         });
 
       });
     });
-
-
-
   }
 
 };
