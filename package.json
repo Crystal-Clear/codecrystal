@@ -1,0 +1,27 @@
+{
+  "name": "codecrystal",
+  "version": "1.0.0",
+  "description": "A tool to create a visualisation of the file structure of your GitHub repo and display it as a badge in your READme",
+  "main": "getFiles.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crystal-Clear/codecrystal.git"
+  },
+  "keywords": [
+    "files",
+    "git"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Crystal-Clear/codecrystal/issues"
+  },
+  "homepage": "https://github.com/Crystal-Clear/codecrystal",
+  "dependencies": {
+    "github": "^0.2.4",
+    "hapi": "^8.6.1"
+  }
+}

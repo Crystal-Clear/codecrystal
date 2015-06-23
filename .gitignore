@@ -12,5 +12,9 @@
 hs_err_pid*
 
 
+
 #ds store
 .DS_Store
+
+# environment variables
+.env
