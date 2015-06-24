@@ -1,13 +1,13 @@
 .node {
-  fill: #ccc;
+  /*fill: #ccc;*/
   stroke: #fff;
   stroke-width: 1.5px;
 }
 
 path.link {
-  fill: none;
   stroke: #666;
-  stroke-width: 1.5px;
+  stroke-width: 3px;
+  stroke-dasharray: 0,2 1;
 }
 
 circle {
