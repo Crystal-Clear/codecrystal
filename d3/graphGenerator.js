@@ -2,13 +2,13 @@ var width = 1700, //width and height of SVG element (its a box and all content p
     height = 1000;
 
 var force = d3.layout.force()
-    .linkDistance(30)
+    .linkDistance(60)
     .size([width, height]);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
-    .style("background", "Yellow");
+    .style("background", "White");
 
 
 d3.json("graphObj.json", function(error, graph) {
@@ -27,7 +27,7 @@ d3.json("graphObj.json", function(error, graph) {
       .append("svg:marker")    // This section adds in the arrows
       .attr("id", String)
       .attr("viewBox", "0 -10 20 20")
-      .attr("refX", 100)
+      .attr("refX", 20)
       .attr("markerWidth", 4)
       .attr("markerHeight", 4)
       .attr("orient", "auto")
@@ -48,10 +48,10 @@ d3.json("graphObj.json", function(error, graph) {
       .attr("class", "node")
       .append("circle")
       .style("fill", function(d){
-        return d.source=="external" ? "Maroon" : "Blue";
+        return d.source=="external" ? "Maroon" : "Green";
       })
       .style("opacity", function(d){
-        return (d.gives+1)/(d.gives+1.5)
+        return (d.gives+1)/(d.gives+5)
       })
       .attr("r", function(d){
         console.log("r",d.requires);

@@ -1,4 +1,5 @@
 var fs = require('fs');
+var Parser =require('./parser.js');
 
 files = ['./handlers.js','./validator.js','./analytics.js','./mandrill.js','./routes.js','./server.js','./hasher.js','./mongo.js','./registers.js'];
 
@@ -15,7 +16,9 @@ for (var i=0;i<files.length;i++){
 }
 
 for (var i=0;i<files.length;i++){
-  var requires = requireparser(graphObj.temp[i]);
+
+  var requires=Parser.insideRequires(graphObj.temp[i]);
+
   graphObj.nodes[i].requires=requires.length;
   requires.forEach(function(link){
     var index;
@@ -33,15 +36,15 @@ for (var i=0;i<files.length;i++){
   });
 }
 
-
-function requireparser(program){
-  links=[];
-  var requires = program.split('require(');
-  for (var i=1; i<requires.length;i++){
-    links.push(requires[i].split(')')[0].slice(1,-1));
-  }
-  return links;
-}
+// get rid of when we can fully confirm new parser working
+// function requireparser(program){
+//   links=[];
+//   var requires = program.split('require(');
+//   for (var i=1; i<requires.length;i++){
+//     links.push(requires[i].split(')')[0].slice(1,-1));
+//   }
+//   return links;
+// }
 
 delete(graphObj.temp);
 

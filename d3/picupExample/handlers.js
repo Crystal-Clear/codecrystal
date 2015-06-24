@@ -1,7 +1,8 @@
-var Hapi = require('hapi');
-var Mongo = require("./mongo.js");
-var Hasher = require("./hasher.js");
-var Validator = require("./validator.js");
+var Hapi = require('hapi' );
+var Mongo = require ("./mongo.js");
+var Hasher = require( "./hasher.js");
+var Validator = require
+("./validator.js");
 
 var Email = require('./mandrill.js');
 var Analytics = require('./analytics.js');
@@ -11,7 +12,7 @@ var handlers = {
 
   landing: function(request, reply){
     console.log(request.auth);
-    if (request.auth.isAuthenticated) {return reply.redirect("/youaintnologinproceed");}//if you are already logged in no need for landing
+    if (request.auth.isAuthenticated) {return reply.redirect("/youaintnologinproceed");}//if you are already logged in no need for landing require("POOOOOOOOOOOOOOP")
     reply.file('./src/landing.html');
   },
   analytics: function(request, reply){
