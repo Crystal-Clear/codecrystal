@@ -1,0 +1,19 @@
+{
+  "nodes":[
+    {"name":"server.js","source":"internal"},
+    {"name":"Hapi","source":"external"},
+    {"name":"routes.js","source":"internal"},
+    {"name":"handlers.js","source":"internal"},
+    {"name":"redisAdaptor.js","source":"internal"},
+    {"name":"redis","source":"external"},
+    {"name":"awes-sdk","source":"external"}
+  ],
+  "links":[
+    {"source":1,"target":0},
+    {"source":2,"target":0},
+    {"source":3,"target":2},
+    {"source":4,"target":3},
+    {"source":5,"target":4},
+    {"source":6,"target":3}
+  ]
+}
