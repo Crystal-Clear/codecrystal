@@ -46,12 +46,23 @@ function getFiles(commits) {
       recursive: true
     };
     github.gitdata.getTree(options, function(err, result){
-      console.log(err, result);
+      // console.log(err, result);
       contents[index] = result;
       // console.log(contents);
     });
   });
 }
+
+// function getFileContents(files) {
+//   files.forEach(function(elem) {
+//     var options = {
+//       user:
+//       repo:
+//       path:
+//     }
+//     github.repos.getContents()
+//   })
+// }
 
 module.exports = {
 
@@ -72,7 +83,6 @@ module.exports = {
           ref: "heads/master"
         };
         github.gitdata.getReference(options, function(err, result) {
-          // console.log(err, result);
           if(err) {
             if(++counter === repos.length) {
                   getFiles(commits);
