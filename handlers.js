@@ -73,18 +73,12 @@ module.exports = {
         };
         github.gitdata.getReference(options, function(err, result) {
           // console.log(err, result);
-          if(err) {
-            if(++counter === repos.length) {
-                  getFiles(commits);
-            }
-            else {return; }
-          }
-          else {
+          if(!err) {
             commits[index] = { user: options.user, repo: options.repo,  sha: result.object.sha };
+          }
           if(++counter === repos.length) {
             getFiles(commits);
           }
-        }
         });
 
       });
