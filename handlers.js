@@ -9,7 +9,7 @@ function configMake(request){
   return {
     hostname: "github.com",
     method: "POST",
-    path: url,
+    path: url
   };
 }
 
@@ -29,13 +29,28 @@ function getAccessToken(request, reply) {
           type: "oauth",
           token: access
       });
-      // github.repos.getAll({}, function(err, data) {
-      //   reply(data);
-      // });
     });
   });
 
   req2.end();
+}
+
+function getFiles(commits) {
+  var contents = [];
+  commits.forEach(function(elem, index) {
+    if (elem === '') { return ;}
+    var options = {
+      user: elem.user,
+      repo: elem.repo,
+      sha: elem.sha,
+      recursive: true
+    };
+    github.gitdata.getTree(options, function(err, result){
+      console.log(err, result);
+      contents[index] = result;
+      // console.log(contents);
+    });
+  });
 }
 
 module.exports = {
@@ -43,16 +58,37 @@ module.exports = {
   login: getAccessToken,
 
   getRepos: function(request, reply) {
-
     github.repos.getAll({}, function(err, data) {
       var repos = data.map(function(elem){
         return elem.full_name;
       });
-      console.log(repos);
+
+      var commits = [];
+      var counter = 0;
+      repos.forEach( function(elem, index) {
+        var options = {
+          user: elem.split('/')[0],
+          repo: elem.split('/')[1],
+          ref: "heads/master"
+        };
+        github.gitdata.getReference(options, function(err, result) {
+          // console.log(err, result);
+          if(err) {
+            if(++counter === repos.length) {
+                  getFiles(commits);
+            }
+            else {return; }
+          }
+          else {
+            commits[index] = { user: options.user, repo: options.repo,  sha: result.object.sha };
+          if(++counter === repos.length) {
+            getFiles(commits);
+          }
+        }
+        });
+
+      });
     });
-    // github.getReference(options, )
   }
-
-
 
 };
