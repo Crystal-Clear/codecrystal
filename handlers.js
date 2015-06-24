@@ -4,12 +4,12 @@ var https = require('https');
 function configMake(request){
   var code = request.query.code;
   var url = "/login/oauth/access_token?client_id=" +
-        process.env.CLIENT_ID + "&client_secret=" +
-        process.env.CLIENT_SECRET + "&code=" + code;
+    process.env.CLIENT_ID + "&client_secret=" +
+    process.env.CLIENT_SECRET + "&code=" + code;
   return {
     hostname: "github.com",
     method: "POST",
-    path: url
+    path: url,
   };
 }
 
@@ -23,46 +23,57 @@ function getAccessToken(request, reply) {
     });
 
     res.on("end", function(){
-      console.log("response ended");
       var access = access_token.split('=')[1].split('&')[0];
       github.authenticate({
           type: "oauth",
           token: access
       });
+      console.log("response ended");
+      reply('<h1>LOGGED IN</h1>');
     });
   });
 
   req2.end();
 }
 
-function getFiles(commits) {
-  var contents = [];
+function getTrees(commits) {
+  var trees = [];
   commits.forEach(function(elem, index) {
     if (elem === '') { return ;}
-    var options = {
+    var config = {
       user: elem.user,
       repo: elem.repo,
       sha: elem.sha,
       recursive: true
     };
-    github.gitdata.getTree(options, function(err, result){
-      // console.log(err, result);
-      contents[index] = result;
-      // console.log(contents);
+    github.gitdata.getTree(config, function(err, result){
+      trees[index] = [result || err, config];
+      if (trees.filter(function(elem){return elem;}).length === commits.length){
+        getFileContents(trees);
+      }
     });
   });
 }
 
-// function getFileContents(files) {
-//   files.forEach(function(elem) {
-//     var options = {
-//       user:
-//       repo:
-//       path:
-//     }
-//     github.repos.getContents()
-//   })
-// }
+function getFileContents(trees) {
+  var results = [];
+  trees.forEach(function(tree) {
+    var result = [];
+    var configuration = tree[1];
+    tree[0].tree.forEach(function(file){
+      configuration.sha = file.sha;
+      github.gitdata.getBlob(configuration, function(err, data){
+        if (err) console.error(configuration.repo, configuration.sha, err);
+        result.push(err || {path: file.path, content: data});
+        if (result.filter(function(elem){return elem;}).length === tree[0].tree.length){
+          results.push(result);
+        }
+      });
+    });
+    if (results.length === trees.length) {console.log('THE RESULTS:', results);}
+  });
+
+}
 
 module.exports = {
 
@@ -70,10 +81,13 @@ module.exports = {
 
   getRepos: function(request, reply) {
     github.repos.getAll({}, function(err, data) {
+      if (err){
+        console.error(err);
+        return;
+      }
       var repos = data.map(function(elem){
         return elem.full_name;
       });
-
       var commits = [];
       var counter = 0;
       repos.forEach( function(elem, index) {
@@ -87,7 +101,7 @@ module.exports = {
             commits[index] = { user: options.user, repo: options.repo,  sha: result.object.sha };
           }
           if(++counter === repos.length) {
-            getFiles(commits);
+            getTrees(commits);
           }
         });
 
