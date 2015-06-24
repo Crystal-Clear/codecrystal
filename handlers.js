@@ -17,7 +17,6 @@ function getAccessToken(request, reply) {
   var access_token = "";
   var options = configMake(request);
   var req2 = https.request(options, function(res) {
-    console.log("post request");
     res.on("data", function(d){
       access_token += d.toString();
     });
@@ -28,7 +27,6 @@ function getAccessToken(request, reply) {
           type: "oauth",
           token: access
       });
-      console.log("response ended");
       reply('<h1>LOGGED IN</h1>');
     });
   });
@@ -37,7 +35,6 @@ function getAccessToken(request, reply) {
 }
 
 function getTrees(commits) {
-  console.log('HELLO');
   var trees = [];
   commits.forEach(function(elem, index) {
     var config = {
@@ -49,7 +46,6 @@ function getTrees(commits) {
     github.gitdata.getTree(config, function(err, result){
       trees[index] = [result || err, config];
       if (trees.filter(function(elem){return elem;}).length === commits.length){
-        console.log('YO');
         getFileContents(trees.slice(1,2));
       }
     });
@@ -59,16 +55,14 @@ function getTrees(commits) {
 function getFileContents(trees) {
   var results = [];
   trees.forEach(function(tree) {
-    console.log('once');
     var result = [];
     var configuration = tree[1];
     tree[0].tree.forEach(function(file){
-      console.log(file.sha, file.path, configuration);
       configuration.sha = file.sha;
       github.gitdata.getBlob(configuration, function(err, data){
-        if (err) console.error(err);
+        if (err) console.error(file.path,err);
         result.push(err || {path: file.path, content: data});
-        console.log(data);
+        console.log(!!data.content);
         if (result.filter(function(elem){return elem;}).length === tree[0].tree.length){
           results.push(result);
         }

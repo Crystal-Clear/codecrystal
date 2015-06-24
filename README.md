@@ -14,7 +14,7 @@ A tool to create a visualisation of the file structure of your Javscript GitHub 
 * [ ] Select repos for code crystal map
 * [ ] Retrieve contents of files in selected repos
 * [ ] Parse files
-* Map internal and external dependancies for  
+* Map internal and external dependencies for  
   * [ ] JavaScript files
   * [ ] HTML files
 * Display file structure on a map with arrows show the direction of dependency
@@ -40,7 +40,7 @@ A tool to create a visualisation of the file structure of your Javscript GitHub 
 
 
 * D3.js
-   * visualization of file links 
+   * visualization of file links
 
 * Heroku
 
