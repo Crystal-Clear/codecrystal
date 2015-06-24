@@ -37,9 +37,9 @@ function getAccessToken(request, reply) {
 }
 
 function getTrees(commits) {
+  console.log('HELLO');
   var trees = [];
   commits.forEach(function(elem, index) {
-    if (elem === '') { return ;}
     var config = {
       user: elem.user,
       repo: elem.repo,
@@ -49,7 +49,8 @@ function getTrees(commits) {
     github.gitdata.getTree(config, function(err, result){
       trees[index] = [result || err, config];
       if (trees.filter(function(elem){return elem;}).length === commits.length){
-        getFileContents(trees);
+        console.log('YO');
+        getFileContents(trees.slice(1,2));
       }
     });
   });
@@ -58,13 +59,19 @@ function getTrees(commits) {
 function getFileContents(trees) {
   var results = [];
   trees.forEach(function(tree) {
+    console.log('once');
     var result = [];
     var configuration = tree[1];
+    // var config = {};
+    // config.user = configuration.user;
+    // config.repo = configuration.repo;
     tree[0].tree.forEach(function(file){
+      console.log(file.sha, file.path, configuration);
       configuration.sha = file.sha;
       github.gitdata.getBlob(configuration, function(err, data){
-        if (err) console.error(configuration.repo, configuration.sha, err);
+        if (err) console.error(err);
         result.push(err || {path: file.path, content: data});
+        console.log(data);
         if (result.filter(function(elem){return elem;}).length === tree[0].tree.length){
           results.push(result);
         }
@@ -100,7 +107,7 @@ module.exports = {
           if(!err) {
             commits[index] = { user: options.user, repo: options.repo,  sha: result.object.sha };
           }
-          if(++counter === repos.length) {
+          if (++counter === repos.length) {
             getTrees(commits);
           }
         });
