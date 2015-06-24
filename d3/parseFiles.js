@@ -1,6 +1,21 @@
 var fs = require('fs');
 var Parser =require('./parser.js');
 
+function freshLink(link){
+  var index;
+  for (var j=0;j<graphObj.nodes.length;j++){
+    if (graphObj.nodes[j].name==link){
+      index=j;
+      graphObj.nodes[j].gives++;
+    }
+  }
+  if (index===undefined) {
+    index=graphObj.nodes.length;
+    graphObj.nodes[index]={"name":link,"source":"external","requires":0,"gives":1};
+  }
+  graphObj.links.push({"source":index,"target":i});
+}
+
 files = ['./handlers.js','./validator.js','./analytics.js','./mandrill.js','./routes.js','./server.js','./hasher.js','./mongo.js','./registers.js'];
 
 graphObj = {
@@ -20,20 +35,7 @@ for (var i=0;i<files.length;i++){
   var requires=Parser.insideRequires(graphObj.temp[i]);
 
   graphObj.nodes[i].requires=requires.length;
-  requires.forEach(function(link){
-    var index;
-    for (var j=0;j<graphObj.nodes.length;j++){
-      if (graphObj.nodes[j].name==link){
-        index=j;
-        graphObj.nodes[j].gives++;
-      }
-    }
-    if (index===undefined) {
-      index=graphObj.nodes.length;
-      graphObj.nodes[index]={"name":link,"source":"external","requires":0,"gives":1};
-    }
-    graphObj.links.push({"source":index,"target":i});
-  });
+  requires.forEach(freshLink(link));
 }
 
 // get rid of when we can fully confirm new parser working
@@ -46,13 +48,10 @@ for (var i=0;i<files.length;i++){
 //   return links;
 // }
 
-delete(graphObj.temp);
+delete graphObj.temp;
 
 
 
 fs.writeFile('graphObj.json', JSON.stringify(graphObj), function (err,data) {
   if (err) return console.log(err);
 });
-
-
-console.log

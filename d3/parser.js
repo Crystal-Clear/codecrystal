@@ -35,7 +35,20 @@ parser.insideRequires = function (programText){
   return links; //return results
 };
 
-parser.pathFinder = function(linkArr,currentfile){
+parser.pathFinder = function(linkArr,currentFile){
+  return linkArr.map(function(link){
+    if (link.indexOf('/') !== -1){
+      link = link.indexOf('.js') !== -1 ? link : link + '.js';
+      var dir = currentFile.split('/').slice(0,-1);
+      var segments = link.split('/');
+      if (segments[0] !== '..'){segments = segments.slice(1);}
+      return segments.reduce(function(pathToLink, pathSection){
+        if (pathSection === '..') {return pathToLink.slice(0,-1);}
+        if (pathSection === '.') {return pathToLink;}
+        return pathToLink.concat([pathSection]);
+      }, dir).join('/');
+    } else {return link;}
+  });
   // from the link array and the currentfile path relative to the root
   // returns link path array relative to the root directory
   // adds .js to each if needed
