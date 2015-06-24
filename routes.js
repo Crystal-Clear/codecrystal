@@ -1,4 +1,5 @@
 var handlers = require('./handlers');
+var lastReq;
 
 module.exports = [
   {
