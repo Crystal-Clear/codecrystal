@@ -37,7 +37,7 @@ function getAccessToken(request, reply) {
 }
 
 function getTrees(commits) {
-  console.log('HELLO');
+  // console.log('HELLO');
   var trees = [];
   commits.forEach(function(elem, index) {
     var config = {
@@ -47,6 +47,7 @@ function getTrees(commits) {
       recursive: true
     };
     github.gitdata.getTree(config, function(err, result){
+      console.log(err, result);
       trees[index] = [result || err, config];
       if (trees.filter(function(elem){return elem;}).length === commits.length){
         console.log('YO');

@@ -21,10 +21,10 @@ A tool to create a visualisation of the file structure of your Javscript GitHub 
   * [ ] Back end map
   * [ ] Front end map
 * [ ] Allow users to link to the image on their READme
-* [ ] Dynamically update the file structure every time a commit is made to master
 
 ####Stretch goals
 
+* [ ] Dynamically update the file structure every time a commit is made to master (using Webhooks)
 * [ ] Colour code nodes in the file map to show the different types of files
 
 ##How
@@ -32,17 +32,17 @@ A tool to create a visualisation of the file structure of your Javscript GitHub 
 * Hapi.js
     * Server
 
-
 * GitHub Api:
     * enable users to log in and find their repos
     * read all the files from the latest commit to the master branch
-    * extract the contents of the file
+    * extract the contents of the file and decode from base64
 
 
 * D3.js
-   * visualization of file links 
+   * visualization of file links
 
 * Heroku
+  * hosting website
 
 
 ## How to run the project
