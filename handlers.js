@@ -62,9 +62,6 @@ function getFileContents(trees) {
     console.log('once');
     var result = [];
     var configuration = tree[1];
-    // var config = {};
-    // config.user = configuration.user;
-    // config.repo = configuration.repo;
     tree[0].tree.forEach(function(file){
       console.log(file.sha, file.path, configuration);
       configuration.sha = file.sha;
