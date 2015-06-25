@@ -2,6 +2,9 @@ var Hapi = require('hapi'),
     server = new Hapi.Server(),
     https = require('https');
 
+console.log(require('./'));
+
+
 server.connection({ port: 8000});
 
 server.route(require('./routes'));

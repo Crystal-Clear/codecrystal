@@ -22,6 +22,10 @@ function removeComments(fileText){
   return fileText;
 }
 
+function dealWithDots(segment){
+  return segment.slice(0, -segment.length);
+}
+
 var parser = {};
 
 // takes in all text from a javascript file and returns an array of links found in require() calls
