@@ -16,7 +16,7 @@ function freshLink(link){
   graphObj.links.push({"source":index,"target":i});
 }
 
-files = ['./handlers.js','./validator.js','./analytics.js','./mandrill.js','./routes.js','./server.js','./hasher.js','./mongo.js','./registers.js'];
+files = ['/handlers.js','/validator.js','/analytics.js','/mandrill.js','/routes.js','/server.js','/hasher.js','/mongo.js','/registers.js'];
 
 graphObj = {
   "nodes":[],
@@ -31,12 +31,19 @@ for (var i=0;i<files.length;i++){
 }
 
 for (var i=0;i<files.length;i++){
-
   var requires=Parser.insideRequires(graphObj.temp[i]);
-
   graphObj.nodes[i].requires=requires.length;
-  requires.forEach(freshLink(link));
+  var reqAbs=Parser.pathFinder(requires,files[i]);
+  reqAbs.forEach(freshLink);
 }
+
+delete graphObj.temp;
+
+
+fs.writeFile('graphObj.json', JSON.stringify(graphObj), function (err,data) {
+  if (err) return console.log(err);
+});
+
 
 // get rid of when we can fully confirm new parser working
 // function requireparser(program){
@@ -47,11 +54,3 @@ for (var i=0;i<files.length;i++){
 //   }
 //   return links;
 // }
-
-delete graphObj.temp;
-
-
-
-fs.writeFile('graphObj.json', JSON.stringify(graphObj), function (err,data) {
-  if (err) return console.log(err);
-});

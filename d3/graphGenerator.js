@@ -1,4 +1,6 @@
-var width = 1700, //width and height of SVG element (its a box and all content position and units will be relative to it)
+var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
+
+var width = 1000, //width and height of SVG element (its a box and all content position and units will be relative to it) need to change to scale to contents!
     height = 1000;
 
 var force = d3.layout.force()
@@ -17,7 +19,7 @@ d3.json("graphObj.json", function(error, graph) {
   force //our graph object, needs a array of node objects and link objects, the set of links will reference the nodes by order in the array
       .nodes(graph.nodes)
       .links(graph.links)
-      .gravity(.1)
+      .gravity(0.1)
       .charge(-2000)
       .start();
 
@@ -27,7 +29,7 @@ d3.json("graphObj.json", function(error, graph) {
       .append("svg:marker")    // This section adds in the arrows
       .attr("id", String)
       .attr("viewBox", "0 -10 20 20")
-      .attr("refX", 20)
+      .attr("refX", 100)
       .attr("markerWidth", 4)
       .attr("markerHeight", 4)
       .attr("orient", "auto")
@@ -48,27 +50,32 @@ d3.json("graphObj.json", function(error, graph) {
       .attr("class", "node")
       .append("circle")
       .style("fill", function(d){
-        return d.source=="external" ? "Maroon" : "Green";
+        return d.source=="external" ? "Maroon" : "Blue";
       })
       .style("opacity", function(d){
-        return (d.gives+1)/(d.gives+5)
+        return (d.gives+1)/(d.gives+1.5);
       })
       .attr("r", function(d){
         console.log("r",d.requires);
         return (Math.sqrt(d.requires + 1)) * 5;
       })
-      .call(force.drag);
-
-
+      .call(force.drag)
+      .on("dblclick",githubLink);
 
 
   var text = svg.append("g").selectAll("text")
     .data(force.nodes())
     .enter().append("text")
-    .attr("x", 8)
-    .attr("y", ".5em")
-    .text(function(d) { return d.name; });
+    .attr("x",8)
+    .attr("y",".5em")
+    .text(function(d){return d.source=="external" ? d.name : d.name.slice(d.name.lastIndexOf('/')+1);});
 
+  function githubLink(d){
+      var link;
+      if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
+      else {link=repoUrl+"/blob/master"+d.name;}
+      location.href = link;
+  }
 
   function transform(d) {
     return "translate(" + d.x + "," + d.y + ")";
@@ -76,17 +83,8 @@ d3.json("graphObj.json", function(error, graph) {
 
   force.on("tick", function() {
     text.attr("transform", transform);
-
-    path.attr("d", function(d) {
-        return "M" +
-            d.source.x + "," +
-            d.source.y + "L" +
-            d.target.x + "," +
-            d.target.y;
-    });
-
-    node
-        .attr("transform", function(d) {
-  	    return "translate(" + d.x + "," + d.y + ")"; });
+    path.attr("d", function(d) {  return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," +  d.target.y;});
+    node.attr("transform", function(d) {return "translate("+d.x+","+d.y+")";});
   });
+
 });
