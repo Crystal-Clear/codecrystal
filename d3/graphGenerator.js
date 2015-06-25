@@ -1,24 +1,38 @@
 // url of window /map/user/repo
 
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {
+  if (xhr.readyState == 4) {
+    console.log(xhr.responseText);
+    loadin(xhr.responseText);
+  }
+};
+xhr.open('GET', '/map/' +document.URL.split('/').slice(-3).join('/'));
+xhr.send();
 
 
 // var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
 
-var width = 1000, //width and height of SVG element (its a box and all content position and units will be relative to it) need to change to scale to contents!
-    height = 1000;
+function loadin(JSONgraphObject){
 
-var force = d3.layout.force()
-    .linkDistance(60)
-    .size([width, height]);
+  var repoInfo=document.URL.split('/').slice(-3);
+  var user=repoInfo[0];
+  var repo=repoInfo[1];
+  var branch=repoInfo[2];
+  var graph=JSON.parse(JSONgraphObject);
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .style("background", "Yellow");
+  document.getElementById("githubRepo").innerHTML="<p>User:"+user+"</p>"+"<p>Repo:"+repo+"</p>"+"<p>Default Branch:"+branch+"</p>";
 
+  var width = 1000, //width and height of SVG element (its a box and all content position and units will be relative to it) need to change to scale to contents!
+      height = 1000;
 
-d3.json("graphObj.json", function(error, graph) {
-  if (error) throw error; //if error obtained when reading in the json object, throw it!
+  var force = d3.layout.force()
+      .linkDistance(60)
+      .size([width, height]);
+
+  var svg = d3.select("#crystalContainer").append("svg")
+      .attr("id","crystal")
+      .style("background", "Yellow");
 
   force //our graph object, needs a array of node objects and link objects, the set of links will reference the nodes by order in the array
       .nodes(graph.nodes)
@@ -63,8 +77,12 @@ d3.json("graphObj.json", function(error, graph) {
         console.log("r",d.requires);
         return (Math.sqrt(d.requires + 1)) * 5;
       })
-      .call(force.drag)
-      .on("dblclick",githubLink);
+      .on("dblclick",githubLink)
+      .on('mouseover', function(d){
+        document.getElementById("filePath").innerHTML="<p>"+d.name+"</p>";
+        document.getElementById("fileContents").innerHTML= d.contents ? "<p>"+d.contents+"</p>": "<p><a href=https://www.npmjs.com/package/"+d.name+">NPM</a> module</p>";
+      })
+     .call(force.drag);
 
 
   var text = svg.append("g").selectAll("text")
@@ -77,7 +95,7 @@ d3.json("graphObj.json", function(error, graph) {
   function githubLink(d){
       var link;
       if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
-      else {link=repoUrl+"/blob/master"+d.name;}
+      else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
       location.href = link;
   }
 
@@ -91,4 +109,4 @@ d3.json("graphObj.json", function(error, graph) {
     node.attr("transform", function(d) {return "translate("+d.x+","+d.y+")";});
   });
 
-});
+}
