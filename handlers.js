@@ -45,7 +45,6 @@ function getRepoInfo(repos, reply) {
       repo: elem[1],
       ref: "heads/" + elem[2]
     };
-    console.log(options);
     github.gitdata.getReference(options, function(err, result) {
       if(!err) {
         commits[index] = { user: options.user, repo: options.repo, branch: elem[2],  sha: result.object.sha };
@@ -76,7 +75,6 @@ function getTrees(commits, reply) {
         trees = trees.map( function(treeObj) {
           return [treeObj[0].tree.filter(function(file) { return file.type ==="blob";}), treeObj[1]];
         });
-      // console.log(trees);
       getFileContents(trees, reply);
 
       }
@@ -85,7 +83,6 @@ function getTrees(commits, reply) {
 }
 
 function getFileContents(trees, reply) {
-  console.log("reply",reply);
   var results = [];
   trees.forEach(function(tree) {
     var result = [];
@@ -154,7 +151,6 @@ module.exports = {
     var branch = path.pop();
     var repo = path.pop();
     var user = path.pop();
-    console.log("HEY JACK!");
     getRepoInfo([[user, repo, branch]], reply);
   }
 

@@ -1,11 +1,11 @@
 var Parser =require('./parser.js');
 
-var graphObj = {
-  "nodes":[],
-  "links":[]
-};
-
 module.exports=function(filesArr,contentsArr){
+
+  var graphObj = {
+    "nodes":[],
+    "links":[]
+  };
 
   for (var k=0;k<filesArr.length;k++){
     var text=contentsArr[k];
