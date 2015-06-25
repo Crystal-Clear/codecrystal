@@ -11,8 +11,10 @@ module.exports = [
       method: 'GET',
       path: "/",
       handler: function(request, reply){
-        reply("<h1>HELLO</h1><a href='https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID + "'>LOGIN with GITHUB</a>");
-        // reply.view("home");
+        // reply("<h1>HELLO</h1><a href='https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID + "'>LOGIN with GITHUB</a>");
+        reply.view("home", {
+          link: "https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID
+        });
       }
     },
     {

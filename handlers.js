@@ -47,11 +47,11 @@ function getTrees(commits) {
       recursive: true
     };
     github.gitdata.getTree(config, function(err, result){
-      console.log(err, result);
+      // console.log(err, result);
       trees[index] = [result || err, config];
-      if (trees.filter(function(elem){return elem;}).length === commits.length){
+      if (trees.length === commits.length){
         console.log('YO');
-        getFileContents(trees.slice(1,2));
+        getFileContents(trees);
       }
     });
   });
@@ -69,13 +69,12 @@ function getFileContents(trees) {
       github.gitdata.getBlob(configuration, function(err, data){
         if (err) console.error(err);
         result.push(err || {path: file.path, content: data});
-        console.log(data);
         if (result.filter(function(elem){return elem;}).length === tree[0].tree.length){
           results.push(result);
         }
       });
     });
-    if (results.length === trees.length) {console.log('THE RESULTS:', results);}
+    if (results.length === trees.length) {console.log('THE RESULTS');}
   });
 
 }
@@ -87,7 +86,7 @@ module.exports = {
   getRepos: function(request, reply) {
     github.repos.getAll({}, function(err, data) {
       if (err){
-        console.error(err);
+        // console.error(err);
         return;
       }
       var repos = data.map(function(elem){
