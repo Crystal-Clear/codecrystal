@@ -31,5 +31,10 @@ module.exports = [
         }
       }
     },
+    {
+      method: 'GET',
+      path: "/map/{path*}",
+      handler: handlers.makeMap
+    }
 
 ];

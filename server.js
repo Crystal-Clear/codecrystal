@@ -12,7 +12,6 @@ server.views({
     html: require('handlebars')
   },
   path: Path.join(__dirname, "views"),
-  helpersPath: './views/helpers'
 });
 
 server.start(function () {
