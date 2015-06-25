@@ -10,7 +10,7 @@ var force = d3.layout.force()
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
-    .style("background", "White");
+    .style("background", "Yellow");
 
 
 d3.json("graphObj.json", function(error, graph) {
