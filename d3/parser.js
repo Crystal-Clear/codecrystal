@@ -39,23 +39,36 @@ parser.insideRequires = function (programText){
   return links; //return results
 };
 
-parser.pathFinder = function(linkArr,currentFile){
+// from the link array and the currentfile path relative to the root
+// returns link path array relative to the root directory
+// adds .js to each if needed
+// also if external no file path just the name of the npm module
+parser.pathFinder = function(linkArr,currentFile){ // current file example '/folder1/folder2/mongo.js' or '/server.js'
+  // return linkArr.map(function(link){
+  //   if (link.indexOf('/') !== -1){
+  //     link = link.indexOf('.js') !== -1 ? link : link + '.js';
+  //     var dir = currentFile.split('/').slice(0,-1);
+  //     var segments = link.split('/');
+  //     if (segments[0] !== '..'){segments = segments.slice(1);}
+  //     return segments.reduce(function(pathToLink, pathSection){
+  //       if (pathSection === '..') {return pathToLink.slice(0,-1);}
+  //       if (pathSection === '.') {return pathToLink;}
+  //       return pathToLink.concat([pathSection]);
+  //     }, dir).join('/');
+  //   } else {return link;}
+  // });
   return linkArr.map(function(link){
     if (link.indexOf('/') !== -1){
       link = link.indexOf('.js') !== -1 ? link : link + '.js';
-      var dir = currentFile.split('/').slice(0,-1);
+      if (link[0]!=='.'){return link;}
+      var dir = currentFile.split('/');
       var segments = link.split('/');
-      if (segments[0] !== '..'){segments = segments.slice(1);}
-      return segments.reduce(function(pathToLink, pathSection){
-        if (segment.indexOf(dots !== -1)) return dealWithDots;
-        return pathToLink.concat([pathSection]);
-      }, dir).join('/');
+      var numOfDots=segments[0].length;
+      var pathArr=dir.slice(0,-numOfDots).concat(segments.slice(1));
+      return pathArr.join('/');
     } else {return link;}
   });
-  // from the link array and the currentfile path relative to the root
-  // returns link path array relative to the root directory
-  // adds .js to each if needed
-  // also if external no file path just the name of the npm module
 };
+
 
 module.exports = parser;
