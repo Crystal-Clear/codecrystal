@@ -2,7 +2,7 @@ var fs = require('fs');
 
 var analytics = {
 
-	readRequireLog: function (object, callback){	
+	readRequireLog: function (object, callback){
 		var obj=[];
 		var counter = {};
 		var logVisitors = {};
@@ -39,7 +39,7 @@ var analytics = {
 					}
 					else {
 					logVisitors[a.source.remoteAddress] += "," +a.timestamp;
-					console.log("adding timestamp, last click more than 30 minutes ago!!!");						
+					console.log("adding timestamp, last click more than 30 minutes ago!!!");
 					}
 				}
 			}

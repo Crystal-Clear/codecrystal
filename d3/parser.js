@@ -20,6 +20,10 @@ function removeWhiteComment(string){
   return string.split(/\r\n|\n|\r/).map(function(line){return line.split('//')[0];}).join('').replace(/\s+/g, ''); // splits text by line breaks (note three types), then for each line split by "//" and take the first part, ie the content before comments and then join all those parts back up and remove spaces " "
 }
 
+function dealWithDots(segment){
+  return segment.slice(0, -segment.length);
+}
+
 var parser = {};
 
 // takes in all text from a javascript file and returns an array of links found in require() calls
@@ -43,8 +47,7 @@ parser.pathFinder = function(linkArr,currentFile){
       var segments = link.split('/');
       if (segments[0] !== '..'){segments = segments.slice(1);}
       return segments.reduce(function(pathToLink, pathSection){
-        if (pathSection === '..') {return pathToLink.slice(0,-1);}
-        if (pathSection === '.') {return pathToLink;}
+        if (segment.indexOf(dots !== -1)) return dealWithDots;
         return pathToLink.concat([pathSection]);
       }, dir).join('/');
     } else {return link;}
