@@ -123,14 +123,7 @@ function generateMap (repoFiles, reply) {
   var fileArr = repoFiles.map(function(file) {
       return file.path;
   });
-
-  var allGraphInfo={
-    user: repoFiles[0].user,
-    repo: repoFiles[0].repo,
-    branch: repoFiles[0].repo,
-    JSONgraphObj: objGen(fileArr,contentsArr)
-  };
-    reply(allGraphInfo);
+    reply(objGen(fileArr,contentsArr));
   //give me the above 4 send them over to /
 
 }

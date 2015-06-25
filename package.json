@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Crystal-Clear/codecrystal",
   "dependencies": {
     "github": "^0.2.4",
+    "handlebars": "^3.0.3",
     "hapi": "^8.6.1"
   }
 }
