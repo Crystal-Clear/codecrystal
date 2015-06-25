@@ -8,7 +8,7 @@ var github = new GitHubApi({
     protocol: "https",
     host: "api.github.com", // should be api.github.com for GitHub
     // pathPrefix: "/api/v3", // for some GHEs; none for GitHub
-    timeout: 15000,
+    timeout: 150000,
     headers: {
         "user-agent": "codecrystal" // GitHub is happy with a unique user agent
     }

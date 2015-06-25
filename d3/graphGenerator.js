@@ -1,4 +1,8 @@
-var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
+// url of window /map/user/repo
+
+
+
+// var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
 
 var width = 1000, //width and height of SVG element (its a box and all content position and units will be relative to it) need to change to scale to contents!
     height = 1000;
