@@ -35,6 +35,11 @@ module.exports = [
       method: 'GET',
       path: "/map/{path*}",
       handler: handlers.makeMap
+    },
+    {
+      method: 'GET',
+      path: "/graph/{path*}",
+      handler: function(request,reply){reply.view("graph");}
     }
 
 ];

@@ -6,7 +6,7 @@ module.exports = function (repoArray) {
   var makeRepoListString = repoArray.map(function(repo) { return makeRepoButton(repo);});
 
   function makeRepoButton(repo) {
-    return '<button class="repoButton"><a href=/map/' + repo[0] + "/" + repo[1] + '>' + repo[0].split('/').pop() + '</a></button>';
+    return '<button class="repoButton"><a href=/graph/' + repo[0] + "/" + repo[1] + '>' + repo[0].split('/').pop() + '</a></button>';
   }
 
   var htmlTop = '<!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="stylesheet" href="/static/css/main.css"><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600" rel="stylesheet" type="text/css"><meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0"/></head><body><h1>Choose your GitHub repos<h1><div>';

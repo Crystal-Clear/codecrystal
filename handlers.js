@@ -1,6 +1,7 @@
 var github  = require('./github');
 var https = require('https');
 var makeRepoList = require('./makeRepoList.js');
+var objGen = require('./d3/graphObjGenerator.js');
 
 function configMake(request){
   var code = request.query.code;
@@ -47,7 +48,7 @@ function getRepoInfo(repos, reply) {
     console.log(options);
     github.gitdata.getReference(options, function(err, result) {
       if(!err) {
-        commits[index] = { user: options.user, repo: options.repo,  sha: result.object.sha };
+        commits[index] = { user: options.user, repo: options.repo, branch: elem[2],  sha: result.object.sha };
       }
       if (++counter === repos.length) {
         getTrees(commits, reply);
@@ -64,6 +65,7 @@ function getTrees(commits, reply) {
       user: elem.user,
       repo: elem.repo,
       sha: elem.sha,
+      branch: elem.branch,
       recursive: true
     };
     github.gitdata.getTree(config, function(err, result){
@@ -92,27 +94,47 @@ function getFileContents(trees, reply) {
       configuration.sha = file.sha;
       github.gitdata.getBlob(configuration, function(err, data){
         if (err) console.error(file.path, err);
-        result.push(err || {path: file.path, content: data});
+        result.push(err || {path: file.path, content: data, branch: configuration.branch, user: configuration.user, repo: configuration.repo});
         console.log(err);
         if (result.filter(function(elem){return elem;}).length === tree[0].length){
           results.push(result);
           if (results.length === trees.length) {
-            reply(decodeBase64(results));
+            generateMap(results[0],reply);
           }
         }
       });
     });
   });
-
 }
 
 function decodeBase64 (fileContents) {
-  return fileContents[0].map(function(contents){
-    var buf = new Buffer(contents.content.content, 'base64');
+  return fileContents.map(function(contents) {
+    var buf = new Buffer(contents, 'base64');
     return buf.toString();
   });
+}
+
+function generateMap (repoFiles, reply) {
+  var encodedFilesArr = repoFiles.map(function(file) {
+      return file.content.content;
+  });
+  var contentsArr = decodeBase64(encodedFilesArr);
+
+  var fileArr = repoFiles.map(function(file) {
+      return file.path;
+  });
+
+  var allGraphInfo={
+    user: repoFiles[0].user,
+    repo: repoFiles[0].repo,
+    branch: repoFiles[0].repo,
+    JSONgraphObj: objGen(fileArr,contentsArr)
+  };
+    reply(allGraphInfo);
+  //give me the above 4 send them over to /
 
 }
+
 
 module.exports = {
 
@@ -132,8 +154,6 @@ module.exports = {
       repoHTML = makeRepoList(repos);
       reply(repoHTML);
     });
-
-
   },
 
   makeMap: function(request, reply) {
