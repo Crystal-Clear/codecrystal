@@ -3,7 +3,9 @@ var Hapi = require('hapi'),
     https = require('https'),
     Path = require('path');
 
-server.connection({ port: 8000});
+var serverOptions   = {port: (process.env.PORT || 8000 ), host: process.env.PORT ? '0.0.0.0' : 'localhost'};
+
+server.connection(serverOptions);
 
 server.route(require('./routes'));
 
