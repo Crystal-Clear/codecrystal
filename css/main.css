@@ -1,7 +1,7 @@
 
 body {
   border: none;
-  background-color: #F0FFFF;
+  background-color: #5CB3FF;
   font-family: 'Source Sans Pro', sans-serif;
 
 }
@@ -70,7 +70,7 @@ body {
 }
 
 .repoButton:hover {
-  background-color: #F0FFFF;
+  background-color: #5CB3FF;
   cursor: pointer;
   cursor: hand;
 }
