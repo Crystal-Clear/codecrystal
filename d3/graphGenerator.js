@@ -82,7 +82,7 @@ function loadin(JSONgraphObject){
         if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
         else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
         document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
-        document.getElementById("fileContents").innerHTML= d.contents ? "<p>"+d.contents+"</p>": "<p>NPM module</p>";
+        document.getElementById("fileContents").innerHTML= d.contents ? "<pre>"+d.contents+"</pre>": "<p>NPM module</p>";
       })
      .call(force.drag);
 

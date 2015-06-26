@@ -1,11 +1,70 @@
 
 body {
-  background-color: blue;
   border: none;
-  font-family: Source Sans Pro;
+  background-color: #F0FFFF;
+  font-family: 'Source Sans Pro', sans-serif;
+
+}
+
+#content {
+  background-color: white;
+  margin: 50px 100px;
+  padding: 50px;
+}
+
+#logo {
+  text-align: center;
+}
+
+#logo > img {
+  height: auto;
+  max-width: 95%;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 #loginButton {
-  height: 10px;
-  width: 20px;
+  height: auto;
+  max-width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#tagLine {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: -0.25em;
+}
+
+#repoButton {
+  border-radius: 10px;
+  display: block;
+  height: 4em;
+  text-align: center;
+  font-family: sans-serif;
+  background-color: white;
+}
+
+#repoList {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 700px) {
+
+  /*#logo > img {
+    height: auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  #loginButton {
+    height: auto;
+    max-width: px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }*/
+
 }
