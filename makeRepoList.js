@@ -8,22 +8,22 @@ module.exports = function (repoArray, orgRepoArray) {
   var makeOrgRepoListString = orgRepoArray.map(function(org) { return makeOrgButtons(org); });
 
   function makeRepoButton(repo) {
-    return '<button class="repoButton"><a href=/graph/' + repo[0] + "/" + repo[1] + '>' + repo[0].split('/').pop() + '</a></button>';
+    return '<button class="repoButton"><a class="repoLink" href=/graph/' + repo[0] + "/" + repo[1] + '>' + repo[0].split('/').pop() + '</a></button>';
   }
 
   function makeOrgButtons(org) {
     var orgButtons = '<div class="org"><div class="orgName">' + org.org + '</div>';
     // console.log(org);
     org.repos.forEach(function(repo) {
-      orgButtons += '<button class="repoButton"><a href=/graph/' + org.org + "/" + repo[0] + "/" + repo[1] + '>' + repo[0] + '</a></button>';
+      orgButtons += '<button class="repoButton"><a class="repoLink" href=/graph/' + org.org + "/" + repo[0] + "/" + repo[1] + '>' + repo[0] + '</a></button>';
     });
 
     return orgButtons + '</div>';
   }
 
-  var htmlTop = '<!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="stylesheet" href="/static/css/main.css"><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600" rel="stylesheet" type="text/css"><meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0"/></head><body><div id="content"><div id=logo><img src="/static/images/codeCrystal2copia.png"></div><h1>Choose your GitHub repos<h1><div id="repoList">';
+  var htmlTop = '<!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="stylesheet" href="/static/css/main.css"><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600" rel="stylesheet" type="text/css"><meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0"/></head><body><div id="content"><div id=logo><img src="/static/images/codeCrystal2copia.png"></div><div id=header><div>Choose your GitHub repos</div><div id=badgeLink></div></div><div id="repoList">';
 
-  var htmlBottom = '</div></div><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script></body></html>';
+  var htmlBottom = '</div></div><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script type="text/javascript" src="/static/js/script.js"></script></body></html>';
 
   return (htmlTop + ('<div id="personalRepo"><div id=personalTitle>My Repos</div>' + makeUserRepoListString.join('') + '</div>') + makeOrgRepoListString.join('') + htmlBottom);
 
