@@ -1,14 +1,13 @@
 
 body {
   border: none;
-  background: #ffff00;
-  background-size: cover;
+  background-color: #F0FFFF;
   font-family: 'Source Sans Pro', sans-serif;
-  background-color: blue;
+
 }
 
 #content {
-  background-color: #DDF;
+  background-color: white;
   margin: 50px 100px;
   padding: 50px;
 }
