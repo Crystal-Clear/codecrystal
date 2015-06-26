@@ -1,6 +1,9 @@
 * {
   margin:0;
-  border:0;
+};
+
+div {
+    box-shadow: 1px 1px 1px #888888;
 }
 
 .node {
@@ -61,8 +64,15 @@ text {
    background-color:pink;
    color: blue;
    height:60vh;
+   overflow-y:auto;
 }
 
 #logoContainer img {
   width:100%;
+  height:auto;
+  min-height: 100px;
+}
+
+#logoContainer {
+  height:20vh;
 }

@@ -21,7 +21,7 @@ function loadin(JSONgraphObject){
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
 
-  document.getElementById("githubRepo").innerHTML="<p>User:"+user+"</p>"+"<p>Repo:"+repo+"</p>"+"<p>Default Branch:"+branch+"</p>";
+  document.getElementById("githubRepo").innerHTML="<p>User: <a href='https://github.com/"+user+"'>"+user+"</a>  Repo: <a href='https://github.com/"+user+"/"+repo+"'>"+repo+"</a></p>"+"<p>Default Branch:"+branch+"</p>";
 
   var width = 1000, //width and height of SVG element (its a box and all content position and units will be relative to it) need to change to scale to contents!
       height = 1000;
@@ -79,8 +79,11 @@ function loadin(JSONgraphObject){
       })
       .on("dblclick",githubLink)
       .on('mouseover', function(d){
-        document.getElementById("filePath").innerHTML="<p>"+d.name+"</p>";
-        document.getElementById("fileContents").innerHTML= d.contents ? "<p>"+d.contents+"</p>": "<p><a href=https://www.npmjs.com/package/"+d.name+">NPM</a> module</p>";
+        var link="";
+        if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
+        else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
+        document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
+        document.getElementById("fileContents").innerHTML= d.contents ? "<p>"+d.contents+"</p>": "<p>NPM module</p>";
       })
      .call(force.drag);
 
@@ -93,7 +96,7 @@ function loadin(JSONgraphObject){
     .text(function(d){return d.source=="external" ? d.name : d.name.slice(d.name.lastIndexOf('/')+1);});
 
   function githubLink(d){
-      var link;
+      var link="";
       if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
       else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
       location.href = link;
