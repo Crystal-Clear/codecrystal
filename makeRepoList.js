@@ -1,4 +1,4 @@
-module.exports = function (repoArray) {
+module.exports = function (repoArray, orgRepoArry) {
 
   console.log('repoArray', repoArray);
   // var repos = repoArray.map(function(elem) { return elem[0]; });
