@@ -3,15 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>Pwetty Gwaph</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/static/d3/d3.css">
   </head>
   <body>
+    <div id ="header">
+      <img src="/static/images/codeCrystal2copia.png" />
+      <h3>LEGEND ↡</h3>
+      <div id = 'legend'>
+        <ul>
+          <li> A --> B : B requires A </li>
+          <li> BLUE: Internal modules </li>
+          <li> PURPLE: External modules (typically npm) </li>
+          <li> AREA of a blue circle reflects the things it requires </li>
+          <li> The opacity of a blue circle reflects the number of times it is required </li>
+          <li> <strong>You can drag the circles around</strong></li>
+          <li> Hovering over one will load it into the sidebar -- you can move your mouse afterwards!</li>
+          <li> Double click on a circle to be taken to its github or npm page</li>
+        </ul>
+      </div>
+    </div>
     <div id="crystalContainer">
     </div>
     <div id="sidePanel">
-      <div id=logoContainer>
-        <img src="/static/images/codeCrystal2copia.png" />
-      </div>
       <div id="githubRepo">
       </div>
       <div id="filePath">
@@ -23,4 +37,5 @@
   </body>
   <script type="text/javascript" src="/static/d3/d3.js"></script>
   <script type="text/javascript" src="/static/d3/graphGenerator.js"></script>
+  <script type="text/javascript" src="/static/js/script.js"></script>
 </html>

@@ -20,13 +20,16 @@ function loadin(JSONgraphObject){
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
 
-  document.getElementById("githubRepo").innerHTML="<p>User: <a href='https://github.com/"+user+"'>"+user+"</a>  Repo: <a href='https://github.com/"+user+"/"+repo+"'>"+repo+"</a></p>"+"<p>Default Branch:"+branch+"</p>";
-
-  var width = 1000, //width and height of SVG element (its a box and all content position and units will be relative to it) need to change to scale to contents!
-      height = 1000;
+  document.getElementById("githubRepo").innerHTML = "<p>User: <a href='https://github.com/"+ user +
+    "'>" + user + "</a>  Repo: <a href='https://github.com/" + user + "/" + repo + "'>" +repo +
+    "</a></p>" + "<p>Default Branch:" + branch + "</p>";
+    //width and height of SVG element (its a box and all content position and units will be relative to it)
+    // need to change to scale to contents!
+    var width = 1000,
+    height = 1000;
 
   var force = d3.layout.force()
-      .linkDistance(60)
+      .linkDistance(150)
       .size([width, height]);
 
   var svg = d3.select("#crystalContainer").append("svg")
@@ -61,30 +64,30 @@ function loadin(JSONgraphObject){
       .attr("marker-end", "url(#end)");
 
   var node = svg.selectAll(".node")
-      .data(graph.nodes)
-      .enter()
-      .append("g")
-      .attr("class", "node")
-      .append("circle")
-      .style("fill", function(d){
-        return d.source=="external" ? "Maroon" : "Blue";
-      })
-      .style("opacity", function(d){
-        return (d.gives+1)/(d.gives+1.5);
-      })
-      .attr("r", function(d){
-        console.log("r",d.requires);
-        return (Math.sqrt(d.requires + 1)) * 5;
-      })
-      .on("dblclick",githubLink)
-      .on('mouseover', function(d){
-        var link="";
-        if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
-        else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
-        document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
-        document.getElementById("fileContents").innerHTML= d.contents ? "<pre>"+d.contents+"</pre>": "<p>NPM module</p>";
-      })
-     .call(force.drag);
+    .data(graph.nodes)
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .append("circle")
+    .style("fill", function(d){
+      return d.source=="external" ? "Maroon" : "Blue";
+    })
+    .style("opacity", function(d){
+      return (d.gives+1)/(d.gives+1.5);
+    })
+    .attr("r", function(d){
+      console.log("r",d.requires);
+      return (Math.sqrt(d.requires + 1)) * 5;
+    })
+    .on("dblclick",githubLink)
+    .on('mouseover', function(d){
+      var link="";
+      if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
+      else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
+      document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
+      document.getElementById("fileContents").innerHTML= d.contents ? "<pre>"+d.contents+"</pre>": "<p>NPM module</p>";
+    })
+   .call(force.drag);
 
 
   var text = svg.append("g").selectAll("text")
@@ -92,12 +95,12 @@ function loadin(JSONgraphObject){
     .enter().append("text")
     .attr("x",8)
     .attr("y",".5em")
-    .text(function(d){return d.source=="external" ? d.name : d.name.slice(d.name.lastIndexOf('/')+1);});
+    .text(function(d){return d.source=="external" ? d.name : d.name.slice(d.name.lastIndexOf('/') + 1);});
 
   function githubLink(d){
-      var link="";
-      if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
-      else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
+      var link = "";
+      if (d.source == "external"){link = "https://www.npmjs.com/package/" + d.name;}
+      else {link = "https://github.com/" + user + "/" + repo + "/blob/" + branch + "/" + d.name;}
       location.href = link;
   }
 
@@ -107,8 +110,10 @@ function loadin(JSONgraphObject){
 
   force.on("tick", function() {
     text.attr("transform", transform);
-    path.attr("d", function(d) {  return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," +  d.target.y;});
-    node.attr("transform", function(d) {return "translate("+d.x+","+d.y+")";});
+    path.attr("d", function(d) {
+      return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," +  d.target.y;
+    });
+    node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")";});
   });
 
 }

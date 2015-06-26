@@ -1,5 +1,6 @@
-// window.onload= function(){
-// var loginLink = document.getElementById('loginButton');
-// loginLink.href = "https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID;
-// console.log(loginLink.href);
-// };
+document.getElementById('header').addEventListener('click',function(){
+  var visibilities = ['block', 'none'];
+  var currentVis = document.getElementById('legend').style.display;
+  console.log(currentVis);
+  document.getElementById('legend').style.display = visibilities[visibilities.indexOf(currentVis) + 1] || 'block';
+});
