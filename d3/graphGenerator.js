@@ -20,9 +20,10 @@ function loadin(JSONgraphObject){
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
 
-  document.getElementById("githubRepo").innerHTML = "<p>User: <a href='https://github.com/"+ user +
-    "'>" + user + "</a>  Repo: <a href='https://github.com/" + user + "/" + repo + "'>" +repo +
-    "</a></p>" + "<p>Default Branch:" + branch + "</p>";
+
+  document.getElementById("githubRepo").innerHTML = "<a href='https://github.com/"+ user +
+    "'>" + user + "</a>/<a href='https://github.com/" + user + "/" + repo + "'>" +repo +
+    "/" + branch + "/</a>";
     //width and height of SVG element (its a box and all content position and units will be relative to it)
     // need to change to scale to contents!
     var width = 1000,

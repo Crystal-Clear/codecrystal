@@ -2,7 +2,6 @@
   margin:0;
 };
 
-
 div {
     box-shadow: 1px 1px 1px #888888;
 }
@@ -32,6 +31,7 @@ text {
 #crystalContainer {
   width:70vw;
   height:100vh;
+  background-color: yellow;
   float:left;
   clear: both;
   overflow: scroll;
@@ -47,7 +47,7 @@ text {
   width: 30%;
   float: left;
   margin-right: 5vw;
-  padding-top: 2vw;
+  padding-top: 1.5vw;
 }
 
 #header > h3 {
@@ -55,6 +55,12 @@ text {
   font-family: "Source Sans Pro";
   font-size: 4rem;
   padding-right: 5rem;
+  margin-top: -10vh;
+}
+
+#header {
+  padding-bottom: 2vw;
+  background-color: #eef;
 }
 
 #legend {
@@ -73,24 +79,23 @@ text {
   width:30vw;
   height:100vh;
   float:right;
-  background-color:pink;
+  background-color: #eef;
 }
 
 #githubRepo {
-  background-color:pink;
-  color: blue;
+  background-color: #eef;
   height:10vh;
 }
 
-#filePath {
+/*#filePath {
   background-color:lime;
   color: blue;
   height:10vh;
-}
+}*/
 
 #fileContents {
-   background-color:pink;
-   color: blue;
+   padding-left: 2vw;
+   background-color: #eef;
    height:60vh;
    overflow-y:scroll;
    resize: horizontal;
