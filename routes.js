@@ -13,7 +13,7 @@ module.exports = [
       handler: function(request, reply){
         // reply("<h1>HELLO</h1><a href='https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID + "'>LOGIN with GITHUB</a>");
         reply.view("home", {
-          link: "https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID
+          link: "https://github.com/login/oauth/authorize?client_id=" + process.env.CLIENT_ID + "&scope=user,repo,read:org,read:repo_hook,write:repo_hook"
         });
       }
     },

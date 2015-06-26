@@ -131,19 +131,51 @@ module.exports = {
   login: getAccessToken,
 
   getRepos: function(request, reply) {
-    var repos;
+    var repos = [];
+    var repoHTML;
+    var orgs = [];
+    var orgRepos = [];
 
     github.repos.getAll({}, function(err, data) {
       if (err){
-        // console.error(err);
         return;
       }
+      //all user repos
       repos = data.map(function(elem){
         return [elem.full_name, elem.default_branch];
       });
-      repoHTML = makeRepoList(repos);
-      reply(repoHTML);
+
+      //all user orgs
+      github.user.getOrgs({}, function(err, data) {
+        if (err) {
+          console.log(err);
+        }
+
+        orgs = data.map(function(elem) {
+          return elem.login;
+        });
+
+        //repos for each org
+        orgs.forEach(function(organization, index) {
+          orgRepos[index] = { org: organization, repos: [] };
+          github.repos.getFromOrg({org: organization}, function(err, data) {
+            data.forEach(function(repo){
+              orgRepos[index].repos.push([repo.name, repo.default_branch]);
+            });
+
+            var filledOrgs = orgRepos.filter(function(org) {
+              return org.repos.length !== 0;
+            });
+            if(filledOrgs.length === orgs.length) {
+              repoHTML = makeRepoList(repos, orgRepos);
+              reply(repoHTML);
+            }
+
+          });
+        });
+      });
     });
+
   },
 
   makeMap: function(request, reply) {

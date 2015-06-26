@@ -37,7 +37,7 @@ body {
   margin-top: -0.25em;
 }
 
-#repoButton {
+.repoButton {
   border-radius: 10px;
   display: block;
   height: 4em;
