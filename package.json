@@ -8,7 +8,7 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "0.10.x",
+    "node": ">= 0.10"
   },
   "repository": {
     "type": "git",
@@ -19,8 +19,8 @@
     "git",
     "crystal",
     "structure",
-    "file structure"
-    "map"
+    "file structure",
+    "map",
     "require"
   ],
   "author": "Crystal-Clear",
