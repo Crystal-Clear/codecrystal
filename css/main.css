@@ -37,14 +37,14 @@ body {
   margin-top: -0.25em;
 }
 
-.repoButton {
+/*.repoButton {
   border-radius: 10px;
-  display: block;
+  display: inline-block;
   height: 3em;
   text-align: center;
   font-family: sans-serif;
   background-color: white;
-}
+}*/
 
 #repoList {
   margin-left: auto;
@@ -56,10 +56,24 @@ body {
 
 #personalTitle
 
-/*.orgName
+.orgName
 
-.org
-*/
+.org*/
+
+.repoButton {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  display: inline-block;
+  font-size: 0.5em;
+  margin: .5em;
+}
+
+.repoButton:hover {
+  background-color: #F0FFFF;
+  cursor: pointer;
+  cursor: hand;
+}
 
 
 @media (max-width: 700px) {
