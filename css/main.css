@@ -37,14 +37,25 @@ body {
   margin-top: -0.25em;
 }
 
-/*.repoButton {
-  border-radius: 10px;
-  display: inline-block;
-  height: 3em;
-  text-align: center;
-  font-family: sans-serif;
-  background-color: white;
-}*/
+#header {
+  width: 100%;
+  height: 55px;
+  font-size: 15px;
+}
+
+#header > div {
+  width: 45%;
+  float: left;
+}
+
+#badgeLink {
+  float: right;
+  border: 2px solid black;
+  background-color: #5CB3FF;
+  color: white;
+  height:100%;
+  font-size: 0.95em;
+}
 
 #repoList {
   margin-left: auto;
@@ -52,9 +63,11 @@ body {
 }
 
 
-/*#personalRepo
+#personalRepo {
+  margin-top: 1em;
+}
 
-#personalTitle
+/*#personalTitle
 
 .orgName
 
@@ -65,7 +78,7 @@ body {
   background-color: white;
   color: black;
   display: inline-block;
-  font-size: 0.5em;
+  font-size: 1em;
   margin: .5em;
 }
 
