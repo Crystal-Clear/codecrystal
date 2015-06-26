@@ -2,6 +2,7 @@
   margin:0;
 };
 
+
 div {
     box-shadow: 1px 1px 1px #888888;
 }
@@ -25,13 +26,16 @@ circle {
 }
 
 text {
-  font: 10px sans-serif;
+  font: 1em sans-serif;
 }
 
 #crystalContainer {
   width:70vw;
   height:100vh;
   float:left;
+  clear: both;
+  overflow: scroll;
+  resize: horizontal;
 }
 
 #crystal{
@@ -39,7 +43,31 @@ text {
   height:100%;
 }
 
+#header > img {
+  width: 30%;
+  float: left;
+  margin-right: 5vw;
+  padding-top: 2vw;
+}
 
+#header > h3 {
+  text-align: right;
+  font-family: "Source Sans Pro";
+  font-size: 4rem;
+  padding-right: 5rem;
+}
+
+#legend {
+  display: none;
+}
+
+#legend > ul > li {
+  font-family: "Source Sans Pro";
+  font-size: 1rem;
+  float: right;
+  width: 20%;
+  padding-right: 2em;
+}
 
 #sidePanel {
   width:30vw;
@@ -64,15 +92,6 @@ text {
    background-color:pink;
    color: blue;
    height:60vh;
-   overflow-y:auto;
-}
-
-#logoContainer img {
-  width:100%;
-  height:auto;
-  min-height: 100px;
-}
-
-#logoContainer {
-  height:20vh;
+   overflow-y:scroll;
+   resize: horizontal;
 }
