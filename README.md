@@ -1,7 +1,11 @@
 # Codecrystal
 
 [![Join the chat at https://gitter.im/Crystal-Clear/codecrystal](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Crystal-Clear/codecrystal?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-A tool to create a visualisation of the file structure of your Javscript GitHub repo and display it as an image in your READme
+A tool to create a visualisation of the file structure of your Javscript GitHub repo and display it as an
+image in your READme
+
+
+[![Codecrystal](https://img.shields.io/badge/code-crystal-5CB3FF.svg)](https://herokostuff/graph/Crystal-Clear/codecrystal/master)
 
 ##Why
 
