@@ -17,6 +17,7 @@ module.exports = function (repoArray, orgRepoArray) {
     org.repos.forEach(function(repo) {
       orgButtons += '<button class="repoButton"><a href=/graph/' + org.org + "/" + repo[0] + "/" + repo[1] + '>' + repo[0] + '</a></button>';
     });
+
     return orgButtons + '</div>';
   }
 
@@ -24,6 +25,8 @@ module.exports = function (repoArray, orgRepoArray) {
 
   var htmlBottom = '</div></div><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script></body></html>';
 
-  return (htmlTop + makeUserRepoListString.join('') + makeOrgRepoListString.join('') + htmlBottom);
+  return (htmlTop + ('<div id="personalRepo"><div id=personalTitle>My Repos</div>' + makeUserRepoListString.join('') + '</div>') + makeOrgRepoListString.join('') + htmlBottom);
 
 };
+
+// + makeOrgRepoListString.join('')

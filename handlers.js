@@ -136,7 +136,7 @@ module.exports = {
     var orgs = [];
     var orgRepos = [];
 
-    github.repos.getAll({}, function(err, data) {
+    github.repos.getAll({type: "owner"}, function(err, data) {
       if (err){
         return;
       }
@@ -144,6 +144,8 @@ module.exports = {
       repos = data.map(function(elem){
         return [elem.full_name, elem.default_branch];
       });
+
+      console.log("repos",repos);
 
       //all user orgs
       github.user.getOrgs({}, function(err, data) {
