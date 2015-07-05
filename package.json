@@ -4,7 +4,7 @@
   "description": "A tool to create a visualisation of the file structure of your GitHub repo and display it as a badge in your READme",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "lab -t 100 && lab -t 100 -r lcov > lcov.info",
     "start": "node server.js"
   },
   "engines": {
@@ -33,5 +33,10 @@
     "github": "^0.2.4",
     "handlebars": "^3.0.3",
     "hapi": "^8.6.1"
+  },
+  "devDependencies": {
+    "code": "^1.4.1",
+    "lab": "^5.11.1",
+    "shot": "^1.5.3"
   }
 }

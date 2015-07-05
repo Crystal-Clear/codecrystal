@@ -13,9 +13,21 @@
         </div>
         <div id="tagLine">
           <h2 >Build interactive maps of your GitHub repositories!</h2>
-          <p>Click the GitHub logo to login and find your projects</p>
         </div>
-        <a href={{link}}><img id="loginButton" src="/static/images/github.png"></a>
+        <div id="badge">
+          <div id="createBadge">
+              <input id="owner" type="text" class="repoInfo" placeholder="owner"></input>
+              <input id="repo"  type="text" class="repoInfo" placeholder="repo"></input>
+              <input id="branch" type="text" class="repoInfo" placeholder="branch"></input>
+              <button onClick="createBadge()">create crystal</button>
+          </div>
+          <div id="showBadge">
+            <div id="badgeLink">
+            </div>
+            <div id="badgeHolder">
+            </div>
+          </div>
+        </div>
     </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/script.js"></script>
