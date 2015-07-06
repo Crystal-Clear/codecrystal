@@ -1,7 +1,8 @@
-var redisAdaptor = function (config) {
+var redisAdaptor = function (redisFakeyOrNoFakey) {
+
   "use strict";
 
-  var redis = config.connection;
+  var redis = require(redisFakeyOrNoFakey);
   var client;
   var url = require('url');
 
@@ -9,64 +10,54 @@ var redisAdaptor = function (config) {
     var redisURL = url.parse(process.env.REDIS_URL);
     client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
     client.auth(redisURL.auth.split(":")[1]);
-}
-
-else {
+  } else {
   client = redis.createClient();
-}
+  }
+
+  function isJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
   return {
-    create: function(imageData, callback) {
+    write: function (repo, graphObj, callback){
       client.select(0, function() {
-          client.hmset(imageData.id, imageData, function(err){
-            callback(err);
-          });
-        }
-      );
-    }, //database 0 is for our metadata
-
-    read: function(db, callback) {
-      var fileLoad = [];
-      var len;
-
-      var cb = function(err, data) {
-        console.log("data:", data);
-        fileLoad.push(data);
-      };
-
-      var scan = function(x) {
-        client.scan(x, function(err, data) {
-          if(err) {
-            console.log(err);
-          } else {
-            var dbindex = data[0];
-            var files = data[1];
-            len = files.length;
-            for(var i = 0; i < len; i++) {
-              client.hgetall(files[i], cb);
-            }
-
-            if(dbindex === "0") {
-              callback(fileLoad);
-            } else {
-              scan(dbindex);
-            }
-          }
+        if (!isJsonString(graphObj)){return callback("Undefined or invalid JSON object",undefined);}
+        if (repo.split('/').length !== 3 || !repo.split('/')[2] ){return callback("Repo path not in required form",undefined);}
+        client.set(repo, graphObj, function(err,nOK){
+          callback(err,nOK);
         });
-      };
-
-      client.select(db, function() {
-        scan(0);
       });
     },
-
-    delete: function(time, callback) {
-      client.del(time, function(err, reply) {
-        callback(reply);
+    read: function (repo, callback){
+      client.select(0, function() {
+        client.get(repo, function(err,reply){
+          callback(err,reply);
+        });
+      });
+    },
+    adminDelete: function (repoArray,callback){
+      var multi = client.multi();
+      repoArray.forEach(function(repo){
+        multi.del(repo,function(err,oneZero){
+          callback(err,oneZero);
+        });
+      });
+      multi.exec(function (err, replies) {
+        console.log(replies); // thsi callback unnneeded
+      });
+    },
+    adminGetRepos: function (callback){
+      client.keys('*',function(err,keys){
+        callback(err,keys);
       });
     }
 
   };
-
 };
 
 module.exports = redisAdaptor;

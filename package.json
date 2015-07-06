@@ -32,11 +32,13 @@
   "dependencies": {
     "github": "^0.2.4",
     "handlebars": "^3.0.3",
-    "hapi": "^8.6.1"
+    "hapi": "^8.6.1",
+    "hiredis": "^0.4.0"
   },
   "devDependencies": {
     "code": "^1.4.1",
     "lab": "^5.11.1",
-    "shot": "^1.5.3"
+    "shot": "^1.5.3",
+    "fakeredis": "0.3.1"
   }
 }
