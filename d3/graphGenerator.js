@@ -22,9 +22,10 @@ function loadIn(JSONgraphObject){
 
 
   graph.links.forEach(function(link) {
-      link.source = nodes[link.source];
-      link.target = nodes[link.target];
-  });
+     link.source = graph.nodes[link.source];
+     link.target = graph.nodes[link.target];
+ });
+
 
   document.getElementById("githubRepo").innerHTML = "<a href='https://github.com/"+ user +
     "'>" + user + "</a>/<a href='https://github.com/" + user + "/" + repo + "'>" +repo +
@@ -70,7 +71,7 @@ function loadIn(JSONgraphObject){
       .attr("marker-end", "url(#end)");
 
   var node = svg.selectAll(".node")
-    .data(graph.nodes)
+    .data(d3.values(graph.nodes))
     .enter()
     .append("g")
     .attr("class", "node")
