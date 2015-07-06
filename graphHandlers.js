@@ -1,10 +1,14 @@
 var Parser = require('./d3/parser.js');
 
+
+
+
 module.exports = {
 
   createGraphObj: function (filesArr) {
     var nodes = {};
     var links = [];
+    var lonelyNodes;
 
     function createLinks (link) {
       var source;
@@ -34,7 +38,7 @@ module.exports = {
       absolutePaths.forEach(createLinks);
     }
 
-    return JSON.stringify({nodes: nodes, links: links});
-  }
+    return JSON.stringify({nodes: nodes, links: links, time: new Date().getTime()});
+  },
 
 };
