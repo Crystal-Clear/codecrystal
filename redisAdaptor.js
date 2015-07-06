@@ -24,15 +24,6 @@ else {
       );
     }, //database 0 is for our metadata
 
-    addAnalytics: function(data, callback) {
-      client.select(1, function() {
-          client.hmset(data.time, data, function(err){
-            callback(err);
-          });
-        }
-      );
-    }, //database 1 is for analytics
-
     read: function(db, callback) {
       var fileLoad = [];
       var len;

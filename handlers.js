@@ -1,16 +1,12 @@
 var db = require('./redisAdaptor.js');
 var github = require('./githubHandlers.js');
+var graph = require('./graphHandlers.js');
 
-//var createAndWriteCrystal = R.compose(db.create,createGraphObj,getRepoInfo);
+//var createAndWriteCrystal = R.compose(db.create, graph.createGraphObj, github.getRepoInfo);
 
 module.exports = {
 
   createCrystal: function(request, reply) {
-    var owner = request.params.owner;
-    var repo = request.params.repo;
-    var branch = request.params.branch;
-
-
     // createAndWriteCrystal([owner, repo, branch]);
   }
 

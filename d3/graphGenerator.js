@@ -3,7 +3,7 @@
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
   if (xhr.readyState == 4) {
-    loadin(xhr.responseText);
+    loadIn(xhr.responseText);
   }
 };
 xhr.open('GET', '/map/' +document.URL.split('/').slice(-3).join('/'));
@@ -12,7 +12,7 @@ xhr.send();
 
 // var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
 
-function loadin(JSONgraphObject){
+function loadIn(JSONgraphObject){
 
   var repoInfo=document.URL.split('/').slice(-3);
   var user=repoInfo[0];
@@ -20,6 +20,11 @@ function loadin(JSONgraphObject){
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
 
+
+  graph.links.forEach(function(link) {
+      link.source = nodes[link.source];
+      link.target = nodes[link.target];
+  });
 
   document.getElementById("githubRepo").innerHTML = "<a href='https://github.com/"+ user +
     "'>" + user + "</a>/<a href='https://github.com/" + user + "/" + repo + "'>" +repo +
@@ -38,7 +43,7 @@ function loadin(JSONgraphObject){
       .style("background", "Yellow");
 
   force //our graph object, needs a array of node objects and link objects, the set of links will reference the nodes by order in the array
-      .nodes(graph.nodes)
+      .nodes(d3.values(graph.nodes))
       .links(graph.links)
       .gravity(0.1)
       .charge(-2000)
