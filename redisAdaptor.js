@@ -14,6 +14,7 @@ var redisAdaptor = function (redisFakeyOrNoFakey) {
   client = redis.createClient();
   }
 
+
   function isJsonString(str) {
     try {
         JSON.parse(str);
@@ -24,6 +25,7 @@ var redisAdaptor = function (redisFakeyOrNoFakey) {
   }
 
   return {
+    clientAuth: client.auth_pass, //used for testing!!
     write: function (repo, graphObj, callback){
       client.select(0, function() {
         if (!isJsonString(graphObj)){return callback("Undefined or invalid JSON object",undefined);}
@@ -40,20 +42,22 @@ var redisAdaptor = function (redisFakeyOrNoFakey) {
         });
       });
     },
-    adminDelete: function (repoArray,callback){
+    adminDelete: function (repoArray,callbackSingle, callbackAll){
       var multi = client.multi();
       repoArray.forEach(function(repo){
         multi.del(repo,function(err,oneZero){
-          callback(err,oneZero);
+          if (err) {callbackSingle(err,undefined)};
         });
       });
       multi.exec(function (err, replies) {
-        console.log(replies); // thsi callback unnneeded
+        callbackAll(err, replies);
       });
     },
     adminGetRepos: function (callback){
-      client.keys('*',function(err,keys){
-        callback(err,keys);
+      client.select(0, function() {
+        client.keys('*',function(err,keys){
+          callback(err,keys);
+        });
       });
     }
 

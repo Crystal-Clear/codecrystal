@@ -1,4 +1,4 @@
-// var handlers = require('./handlers');
+var handlers = require('./handlers');
 
 module.exports = [
    {
