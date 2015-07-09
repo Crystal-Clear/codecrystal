@@ -46,7 +46,7 @@ var redisAdaptor = function (redisFakeyOrNoFakey) {
       var multi = client.multi();
       repoArray.forEach(function(repo){
         multi.del(repo,function(err,oneZero){
-          if (err) {callbackSingle(err,undefined)};
+          if (err) {callbackSingle(err,undefined);}
         });
       });
       multi.exec(function (err, replies) {

@@ -1,4 +1,4 @@
-// url of window /map/user/repo
+// url of window /crystalise/user/repo
 
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
@@ -6,7 +6,7 @@ xhr.onreadystatechange = function() {
     loadIn(xhr.responseText);
   }
 };
-xhr.open('GET', '/map/' +document.URL.split('/').slice(-3).join('/'));
+xhr.open('GET', '/getCrystal/' +document.URL.split('/').slice(-3).join('/'));
 xhr.send();
 
 
@@ -19,7 +19,6 @@ function loadIn(JSONgraphObject){
   var repo=repoInfo[1];
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
-
 
   graph.links.forEach(function(link) {
      link.source = graph.nodes[link.source];
@@ -83,7 +82,6 @@ function loadIn(JSONgraphObject){
       return (d.gives+1)/(d.gives+1.5);
     })
     .attr("r", function(d){
-      console.log("r",d.requires);
       return (Math.sqrt(d.requires + 1)) * 5;
     })
     .on("dblclick",githubLink)

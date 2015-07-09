@@ -2,7 +2,8 @@ var Parser = require('./d3/parser.js');
 
 module.exports = {
 
-  createGraphObj: function (filesArr) {
+  createGraphObj: function (repoObj) {
+    var filesArr=repoObj.files;
     var nodes = {};
     var links = [];
 
@@ -27,14 +28,17 @@ module.exports = {
     }
 
     for (var i = 0; i<filesArr.length ; i++) {
-      var requires = Parser.insideRequires(filesArr[i].contents);
+      var requires = Parser.insideRequires(filesArr[i].content);
       nodes[filesArr[i].name].requires = requires.length;
       var absolutePaths = Parser.pathFinder(requires,filesArr[i].name);
-
       absolutePaths.forEach(createLinks);
     }
 
-    return JSON.stringify({nodes: nodes, links: links});
+    repoObj.nodes=nodes;
+    repoObj.links=links;
+    delete repoObj.files;
+
+    return JSON.stringify(repoObj);
   }
 
 };
