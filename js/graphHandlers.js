@@ -1,4 +1,4 @@
-var Parser = require('./d3/parser.js');
+var Parser = require('./parser.js');
 
 module.exports = {
 

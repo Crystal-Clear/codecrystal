@@ -7,7 +7,7 @@ var serverOptions   = {port: (process.env.PORT || 8000 ), host: process.env.PORT
 
 server.connection(serverOptions);
 
-server.route(require('./routes'));
+server.route(require('./js/routes'));
 
 server.views({
   engines: {
