@@ -24,6 +24,13 @@
         </ul>
       </div>
     </div>
+    <div class="ui-widget">
+    <input id="search">
+    <button type="button" onclick="searchNode()">Search</button>
+  </div>
+  <div>
+    <div id="pinnedNodes">
+    </div>
     <div id="crystalContainer">
     </div>
     <div id="sidePanel">
@@ -33,7 +40,11 @@
       <div id="fileContents">
       </div>
     </div>
+  </div>
   </body>
   <script type="text/javascript" src="/static/d3/d3.js"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
+  <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> </script>
   <script type="text/javascript" src="/static/d3/graphGenerator.js"></script>
 </html>

@@ -29,13 +29,18 @@ text {
 }
 
 #crystalContainer {
-  width:70vw;
+  width:50vw;
   height:100vh;
   background-color: yellow;
   float:left;
-  clear: both;
   overflow: scroll;
   resize: horizontal;
+}
+
+#pinnedNodes {
+  width:20vw;
+  height:100vh;
+  float: left;
 }
 
 #crystal{
@@ -76,7 +81,7 @@ text {
 }
 
 #sidePanel {
-  width:30vw;
+  width:20vw;
   height:100vh;
   float:right;
   background-color: #eef;
