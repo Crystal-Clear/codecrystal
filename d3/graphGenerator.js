@@ -1,24 +1,29 @@
-// url of window /map/user/repo
+// url of window /crystalise/user/repo
 
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
   if (xhr.readyState == 4) {
-    loadin(xhr.responseText);
+    loadIn(xhr.responseText);
   }
 };
-xhr.open('GET', '/map/' +document.URL.split('/').slice(-3).join('/'));
+xhr.open('GET', '/getCrystal/' +document.URL.split('/').slice(-3).join('/'));
 xhr.send();
 
 
 // var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
 
-function loadin(JSONgraphObject){
+function loadIn(JSONgraphObject){
 
   var repoInfo=document.URL.split('/').slice(-3);
   var user=repoInfo[0];
   var repo=repoInfo[1];
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
+
+  graph.links.forEach(function(link) {
+     link.source = graph.nodes[link.source];
+     link.target = graph.nodes[link.target];
+ });
 
 
   document.getElementById("githubRepo").innerHTML = "<a href='https://github.com/"+ user +
@@ -38,7 +43,7 @@ function loadin(JSONgraphObject){
       .style("background", "Yellow");
 
   force //our graph object, needs a array of node objects and link objects, the set of links will reference the nodes by order in the array
-      .nodes(graph.nodes)
+      .nodes(d3.values(graph.nodes))
       .links(graph.links)
       .gravity(0.1)
       .charge(-2000)
@@ -65,7 +70,7 @@ function loadin(JSONgraphObject){
       .attr("marker-end", "url(#end)");
 
   var node = svg.selectAll(".node")
-    .data(graph.nodes)
+    .data(d3.values(graph.nodes))
     .enter()
     .append("g")
     .attr("class", "node")
@@ -77,7 +82,6 @@ function loadin(JSONgraphObject){
       return (d.gives+1)/(d.gives+1.5);
     })
     .attr("r", function(d){
-      console.log("r",d.requires);
       return (Math.sqrt(d.requires + 1)) * 5;
     })
     .on("dblclick",githubLink)
