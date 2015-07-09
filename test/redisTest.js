@@ -1,6 +1,6 @@
 process.env.REDIS_URL="redis://rediscloud:password@localhost:6379";
 var assert = require('assert'),
-    redis = require('../redisAdaptor.js')('fakeredis');
+    redis = require('../js/redisAdaptor.js')('fakeredis');
 
 var graphObj = {nodes: {indexjs: {"name: index.js, source":"external","requires":0,"gives":1, "sha": ""}, inxjs: {"name: inx.js, source":"external","requires":0,"gives":1, "sha": ""}}, links: [{source: "test", target: "test"}]};
 var testObj = JSON.stringify(graphObj);
@@ -15,7 +15,7 @@ console.log("#test0 passed");
 
 console.log("#Test 0.5: Check the local host client setup");
   process.env.REDIS_URL = "";
-  redis = require('../redisAdaptor.js')('fakeredis');
+  redis = require('../js/redisAdaptor.js')('fakeredis');
   assert.equal(redis.clientAuth,null);
 console.log("#test0.5 passed");
 

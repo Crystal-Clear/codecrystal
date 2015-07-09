@@ -1,3 +1,5 @@
+var R = require('ramda');
+
 //takes in a character and cehcks to see if alphanumeric returning true if so or false otherwise
 function isAlphaNumeric(character){
   var charCode=character.charCodeAt(0); //finds character code of character

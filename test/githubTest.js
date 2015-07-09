@@ -1,6 +1,6 @@
 var fs = require('fs');
 var assert = require('assert');
-var githubAdaptor=require('../githubAdaptor.js');
+var githubAdaptor=require('../js/githubAdaptor.js');
 var thisFileContents=fs.readFileSync(__dirname+"/githubTest.js",'utf8');
 
 console.log("1: Tests getRepoObj function");
