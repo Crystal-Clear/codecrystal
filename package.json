@@ -38,8 +38,9 @@
   },
   "devDependencies": {
     "code": "^1.4.1",
+    "env2": "^2.0.1",
+    "fakeredis": "0.3.1",
     "lab": "^5.11.1",
-    "shot": "^1.5.3",
-    "fakeredis": "0.3.1"
+    "shot": "^1.5.3"
   }
 }

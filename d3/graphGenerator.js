@@ -9,9 +9,6 @@ xhr.onreadystatechange = function() {
 xhr.open('GET', '/getCrystal/' +document.URL.split('/').slice(-3).join('/'));
 xhr.send();
 
-
-// var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
-
 function findLonelyNodes (nodes) {
   var lonelyNodes = {};
   var connectedNodes = {};
@@ -33,8 +30,6 @@ function loadIn(JSONgraphObject){
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
 
-  console.log("nodes", graph.nodes);
-
   var cleanedNodes = findLonelyNodes(graph.nodes);
   var nodes = cleanedNodes[0];
   var lonelyNodes = cleanedNodes[1];
@@ -45,34 +40,35 @@ function loadIn(JSONgraphObject){
   });
 
 
-  document.getElementById("githubRepo").innerHTML = "<a href='https://github.com/"+ user +
+  document.getElementsByClassName("github-repo")[0].innerHTML = "<a href='https://github.com/"+ user +
     "'>" + user + "</a>/<a href='https://github.com/" + user + "/" + repo + "'>" +repo +
     "/" + branch + "/</a>";
     //width and height of SVG element (its a box and all content position and units will be relative to it)
     // need to change to scale to contents!
-    var width = 900,
-    height = 1000;
+
+    // var width = document.getElementsByClassName("node-container")[0].getAttribute("width");
+    // height = document.getElementsByClassName("node-container")[0].getAttribute("height");
+  // var width = document.width;
+  // var height = 0.9 * document.height;
 
   var force = d3.layout.force()
       .linkDistance(100)
-      .size([width, height]);
+      .size([document.documentElement.clientWidth, document.documentElement.clientHeight]);
 
   var lonelyForce = d3.layout.force()
       .size([10, 1000]);
 
-  var svg = d3.select("#crystalContainer").append("svg")
-      .attr("id","crystal")
-      .style("background", "Yellow");
+  var svg = d3.select(".node-container").append("svg")
+      .attr("class","crystal")
 
-  var svgPinned = d3.select("#pinnedNodes").append("svg")
-      .attr("id","pinnedNodes")
-      .style("background", "green");
+  var svgPinned = d3.select(".pinned-nodes-container").append("svg")
+      .attr("class","pinned-nodes")
 
   force //our graph object, needs a array of node objects and link objects, the set of links will reference the nodes by order in the array
     .nodes(d3.values(nodes))
     .links(graph.links)
     .gravity(0.1)
-    .charge(-2000)
+    .charge(-400)
     .start();
 
   lonelyForce
@@ -122,8 +118,8 @@ function loadIn(JSONgraphObject){
       var link="";
       if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
       else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
-      document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
-      document.getElementById("fileContents").innerHTML= d.contents ? "<pre>"+d.contents+"</pre>": "<p>NPM module</p>";
+      // document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
+      // document.getElementById("fileContents").innerHTML= d.contents ? "<pre>"+d.contents+"</pre>": "<p>NPM module</p>";
     })
    .call(force.drag);
 
