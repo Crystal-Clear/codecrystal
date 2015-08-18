@@ -33,6 +33,8 @@ function loadIn(JSONgraphObject){
   var branch=repoInfo[2];
   var graph=JSON.parse(JSONgraphObject);
 
+  console.log("nodes", graph.nodes);
+
   var cleanedNodes = findLonelyNodes(graph.nodes);
   var nodes = cleanedNodes[0];
   var lonelyNodes = cleanedNodes[1];
@@ -52,7 +54,7 @@ function loadIn(JSONgraphObject){
     height = 1000;
 
   var force = d3.layout.force()
-      .linkDistance(150)
+      .linkDistance(100)
       .size([width, height]);
 
   var lonelyForce = d3.layout.force()

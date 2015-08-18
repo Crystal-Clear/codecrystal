@@ -6,7 +6,7 @@ var graph = require('./graphHandlers.js');
 
 module.exports = {
   getCrystal: function(request, reply) {
-    var repoPath=request.params.repoPath;
+    var repoPath = request.params.repoPath;
     db.read(repoPath,function(err,data){
       if (err) {console.log(err);}
       if (data){reply(data);}
