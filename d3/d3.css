@@ -7,7 +7,8 @@ div {
 }
 
 body {
-  background-color: #eee
+  background-color: white;
+  font-family: Raleway;
 }
 
 .node {
@@ -33,40 +34,66 @@ text {
 }
 
 .header {
-  height: 15vh;
+  height: 10vh;
   width: 100%;
   text-align: center;
+  display: block;
 }
 
-.logo {
-  height: 80%;
-}
+  .logo {
+    height: 80%;
+    margin-top: 1em;
+  }
 
 .node-container {
-  height: 85vh;
+  height: 90vh;
   width: 100vw;
   display: inline-block;
 }
 
-.pinned-nodes-container {
-  width: 20%;
-  height: 100%;
-  display: inline-block;
+  .pinned-nodes-container {
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+  }
+
+  .pinned-nodes {
+
+  }
+
+  .crystal {
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+    display:inline-block;
+  }
+
+.search-container {
+  margin-top: 1em;
+  text-align: center;
+  padding: 1em;
+  display: block;
 }
-
-.pinned-nodes {
-
-}
-
-.crystal {
-  width: 100%;
-  height: 100%;
-  background-color: #d3d3d3;
-  display:inline-block;
-}
-
-
-
+  .search {
+    padding:8px 15px;
+    background:rgba(50, 50, 50, 0.2);
+    border:0px solid #dbdbdb;
+  }
+  .search:focus {
+    outline: none;
+  }
+  .search-button {
+    position:relative;
+    padding:6px 15px;
+    left:-8px;
+    border:2px solid #207cca;
+    background-color:#207cca;
+    color:#fafafa;
+  }
+  .search-button:hover  {
+    background-color:#fafafa;
+    color:#207cca;
+  }
 
 /*
 #crystalContainer {

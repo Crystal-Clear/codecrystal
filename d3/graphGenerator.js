@@ -46,11 +46,6 @@ function loadIn(JSONgraphObject){
     //width and height of SVG element (its a box and all content position and units will be relative to it)
     // need to change to scale to contents!
 
-    // var width = document.getElementsByClassName("node-container")[0].getAttribute("width");
-    // height = document.getElementsByClassName("node-container")[0].getAttribute("height");
-  // var width = document.width;
-  // var height = 0.9 * document.height;
-
   var force = d3.layout.force()
       .linkDistance(100)
       .size([document.documentElement.clientWidth, document.documentElement.clientHeight]);
@@ -58,10 +53,14 @@ function loadIn(JSONgraphObject){
   var lonelyForce = d3.layout.force()
       .size([10, 1000]);
 
-  var svg = d3.select(".node-container").append("svg")
-      .attr("class","crystal")
+  var svg = d3.select(".node-container")
+      .append("svg:svg")
+        .attr("class","crystal")
+      .append('svg:g')
+        .call(d3.behavior.zoom().on("zoom", redraw))
+      .append('svg:g');
 
-  var svgPinned = d3.select(".pinned-nodes-container").append("svg")
+  var svgPinned = d3.select(".pinned-nodes-container").append("svg:svg")
       .attr("class","pinned-nodes")
 
   force //our graph object, needs a array of node objects and link objects, the set of links will reference the nodes by order in the array
@@ -89,6 +88,13 @@ function loadIn(JSONgraphObject){
     .attr("orient", "auto")
     .append("svg:path")
     .attr("d", "M0,-10L20,0L0,10");
+
+  function redraw() {
+    console.log("here", d3.event.translate, d3.event.scale);
+    svg.attr("transform",
+        "translate(" + d3.event.translate + ")"
+        + " scale(" + d3.event.scale + ")");
+  }
 
   var path = svg.append("svg:g").selectAll("path")
     .data(force.links())
@@ -230,16 +236,22 @@ function loadIn(JSONgraphObject){
       });
   });
 
+  document.getElementsByClassName("search")[0].onkeydown = function(e) {
+    if (e.keyCode === 13) {
+      searchNode();
+    }
+  };
+
   function searchNode() {
       //find the node
-      var selectedVal = document.getElementById('search').value;
+      var selectedVal = document.getElementsByClassName('search')[0].value;
       console.log(selectedVal);
       var node = svg.selectAll(".node");
       if (selectedVal == "none") {
           node.style("stroke", "white").style("stroke-width", "10");
       } else {
           var selected = node.filter(function (d, i) {
-              return d.name != selectedVal;
+              return d.name.indexOf(selectedVal) === -1;
           });
           selected.style("opacity", "0");
           var link = svg.selectAll(".link")
