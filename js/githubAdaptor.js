@@ -50,6 +50,7 @@ function getRepoCommit (options, callback) {
 
 function getCommitTree (options, callback) {
   var treeOptions=JSON.parse(JSON.stringify(options));
+  treeOptions.recursive=true;
   github.gitdata.getTree(treeOptions, function(err, data) {
     if (err) {return callback(err, null);}
     else {

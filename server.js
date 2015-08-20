@@ -2,6 +2,7 @@ var Hapi = require('hapi'),
     server = new Hapi.Server(),
     https = require('https'),
     Path = require('path');
+    env = require('env2')('./.env');
 
 var serverOptions   = {port: (process.env.PORT || 8000 ), host: process.env.PORT ? '0.0.0.0' : 'localhost'};
 

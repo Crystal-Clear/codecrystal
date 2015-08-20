@@ -3,44 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>Pwetty Gwaph</title>
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600" rel="stylesheet" type="text/css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
     <link rel="stylesheet" href="/static/d3/d3.css">
   </head>
   <body>
-    <div id ="header">
-      <img src="/static/images/codeCrystal2copia.png" />
-      <span id="githubRepo"></span>
-      <h3>LEGEND ↡</h3>
-      <div id = 'legend'>
-        <ul>
-          <li> A --> B : B requires A </li>
-          <li> BLUE: Internal modules </li>
-          <li> PURPLE: External modules (typically npm) </li>
-          <li> AREA of a blue circle reflects the things it requires </li>
-          <li> The opacity of a blue circle reflects the number of times it is required </li>
-          <li> <strong>You can drag the circles around</strong></li>
-          <li> Hovering over one will load it into the sidebar -- you can move your mouse afterwards!</li>
-          <li> Double click on a circle to be taken to its github or npm page</li>
-        </ul>
-      </div>
+    <div class="header">
+      <img class="logo" src="/static/images/codeCrystal2copia.png" />
+      <p class="github-repo"></p>
     </div>
-    <div class="ui-widget">
-    <input id="search">
-    <button type="button" onclick="searchNode()">Search</button>
-  </div>
-  <div>
-    <div id="pinnedNodes">
+    <div class="search-container ui-widget">
+      <input class="search">
+      <button class = "search-button" type="button" onclick="searchNode()">Search</button>
     </div>
-    <div id="crystalContainer">
+    <div class="node-container">
+      <div class="pinned-nodes"></div>
     </div>
-    <div id="sidePanel">
-      <div id="filePath">
-      </div>
-      <div id="divider"></div>
-      <div id="fileContents">
-      </div>
-    </div>
-  </div>
   </body>
   <script type="text/javascript" src="/static/d3/d3.js"></script>
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>

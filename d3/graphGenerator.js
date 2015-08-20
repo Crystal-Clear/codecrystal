@@ -9,9 +9,6 @@ xhr.onreadystatechange = function() {
 xhr.open('GET', '/getCrystal/' +document.URL.split('/').slice(-3).join('/'));
 xhr.send();
 
-
-// var repoUrl="https://github.com/lajj/picup" //do a repo url thing here
-
 function findLonelyNodes (nodes) {
   var lonelyNodes = {};
   var connectedNodes = {};
@@ -43,34 +40,34 @@ function loadIn(JSONgraphObject){
   });
 
 
-  document.getElementById("githubRepo").innerHTML = "<a href='https://github.com/"+ user +
+  document.getElementsByClassName("github-repo")[0].innerHTML = "<a href='https://github.com/"+ user +
     "'>" + user + "</a>/<a href='https://github.com/" + user + "/" + repo + "'>" +repo +
     "/" + branch + "/</a>";
     //width and height of SVG element (its a box and all content position and units will be relative to it)
     // need to change to scale to contents!
-    var width = 900,
-    height = 1000;
 
   var force = d3.layout.force()
-      .linkDistance(150)
-      .size([width, height]);
+      .linkDistance(100)
+      .size([document.documentElement.clientWidth, document.documentElement.clientHeight]);
 
   var lonelyForce = d3.layout.force()
       .size([10, 1000]);
 
-  var svg = d3.select("#crystalContainer").append("svg")
-      .attr("id","crystal")
-      .style("background", "Yellow");
+  var svg = d3.select(".node-container")
+      .append("svg:svg")
+        .attr("class","crystal")
+      .append('svg:g')
+        .call(d3.behavior.zoom().on("zoom", redraw))
+      .append('svg:g');
 
-  var svgPinned = d3.select("#pinnedNodes").append("svg")
-      .attr("id","pinnedNodes")
-      .style("background", "green");
+  var svgPinned = d3.select(".pinned-nodes-container").append("svg:svg")
+      .attr("class","pinned-nodes")
 
   force //our graph object, needs a array of node objects and link objects, the set of links will reference the nodes by order in the array
     .nodes(d3.values(nodes))
     .links(graph.links)
     .gravity(0.1)
-    .charge(-2000)
+    .charge(-400)
     .start();
 
   lonelyForce
@@ -91,6 +88,13 @@ function loadIn(JSONgraphObject){
     .attr("orient", "auto")
     .append("svg:path")
     .attr("d", "M0,-10L20,0L0,10");
+
+  function redraw() {
+    console.log("here", d3.event.translate, d3.event.scale);
+    svg.attr("transform",
+        "translate(" + d3.event.translate + ")"
+        + " scale(" + d3.event.scale + ")");
+  }
 
   var path = svg.append("svg:g").selectAll("path")
     .data(force.links())
@@ -120,8 +124,8 @@ function loadIn(JSONgraphObject){
       var link="";
       if (d.source=="external"){link="https://www.npmjs.com/package/"+d.name;}
       else {link="https://github.com/"+user+"/"+repo+"/blob/"+branch+"/"+d.name;}
-      document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
-      document.getElementById("fileContents").innerHTML= d.contents ? "<pre>"+d.contents+"</pre>": "<p>NPM module</p>";
+      // document.getElementById("filePath").innerHTML="<a href='"+link+"'>"+d.name+"</a>";
+      // document.getElementById("fileContents").innerHTML= d.contents ? "<pre>"+d.contents+"</pre>": "<p>NPM module</p>";
     })
    .call(force.drag);
 
@@ -232,16 +236,22 @@ function loadIn(JSONgraphObject){
       });
   });
 
+  document.getElementsByClassName("search")[0].onkeydown = function(e) {
+    if (e.keyCode === 13) {
+      searchNode();
+    }
+  };
+
   function searchNode() {
       //find the node
-      var selectedVal = document.getElementById('search').value;
+      var selectedVal = document.getElementsByClassName('search')[0].value;
       console.log(selectedVal);
       var node = svg.selectAll(".node");
       if (selectedVal == "none") {
           node.style("stroke", "white").style("stroke-width", "10");
       } else {
           var selected = node.filter(function (d, i) {
-              return d.name != selectedVal;
+              return d.name.indexOf(selectedVal) === -1;
           });
           selected.style("opacity", "0");
           var link = svg.selectAll(".link")
