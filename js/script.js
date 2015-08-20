@@ -5,7 +5,9 @@ function createBadge() {
   if (!owner){return alert("No username or organisation supplied");}
   if (!repo){return alert("No repo supplied");}
   var repoPath =  owner + '/' + repo + '/' + branch;
-  var linkToCrystal = 'www.codecrystal.herokuapp.com/crystalise/' + repoPath;
-  document.getElementById("badgeLink").innerHTML = '[![Codecrystal](https://img.shields.io/badge/code-crystal-5CB3FF.svg)](' + linkToCrystal + ')'; //change image link
-  document.getElementById("badgeHolder").innerHTML = '<a href='+ linkToCrystal +'><img alt="codecrystal badge" src="/static/images/badge.svg"></a>';
+  var linkToCrystal = 'http://codecrystal.herokuapp.com/crystalise/' + repoPath;
+  document.getElementsByClassName("show-badge")[0].setAttribute("display", "block");
+  document.getElementsByClassName("badgeLink")[0].innerHTML = '[![Codecrystal](https://img.shields.io/badge/code-crystal-5CB3FF.svg)](' + linkToCrystal + ')'; //change image link
+  document.getElementsByClassName("badgeHolder")[0].innerHTML = '<a href='+ linkToCrystal +'><img alt="codecrystal badge" src="/static/images/badge.svg"></a>';
+  document.getElementsByClassName("view-crystal")[0].setAttribute("src",linkToCrystal);
 }
