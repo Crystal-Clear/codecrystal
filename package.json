@@ -30,12 +30,13 @@
   },
   "homepage": "https://github.com/Crystal-Clear/codecrystal",
   "dependencies": {
+    "env2": "^2.0.1",
     "github": "^0.2.4",
     "handlebars": "^3.0.3",
     "hapi": "^8.6.1",
     "hiredis": "^0.4.0",
-    "redis": "^0.12.1",
-    "env2": "^2.0.1"
+    "ramda": "^0.17.1",
+    "redis": "^0.12.1"
   },
   "devDependencies": {
     "code": "^1.4.1",
