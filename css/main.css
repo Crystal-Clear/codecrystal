@@ -2,9 +2,38 @@
 body {
   border: none;
   background-color: #5CB3FF;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: Raleway, sans-serif;
 
 }
+
+.search-container {
+  margin-top: 1em;
+  text-align: center;
+  padding: 1em;
+  display: block;
+}
+  .search {
+    padding:8px 15px;
+    background:rgba(50, 50, 50, 0.2);
+    border:0px solid #dbdbdb;
+    font-size: 15px;
+  }
+  .search:focus {
+    outline: none;
+  }
+  .search-button {
+    position:relative;
+    padding:6px 15px;
+    left:-8px;
+    border:2px solid #207cca;
+    background-color:#207cca;
+    color:#fafafa;
+    font-size: 15px;
+  }
+  .search-button:hover  {
+    background-color:#fafafa;
+    color:#207cca;
+  }
 
 #content {
   background-color: white;
@@ -21,14 +50,6 @@ body {
   max-width: 95%;
   margin-top: 50px;
   margin-bottom: 20px;
-}
-
-#loginButton {
-  height: auto;
-  max-width: 70%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #tagLine {
@@ -50,7 +71,7 @@ body {
 
 #badgeLink {
   float: right;
-  border: 2px solid black;
+  /*border: 2px solid black;*/
   background-color: #5CB3FF;
   color: white;
   height:100%;
@@ -60,11 +81,6 @@ body {
 #repoList {
   margin-left: auto;
   margin-right: auto;
-}
-
-
-#personalRepo {
-  margin-top: 1em;
 }
 
 /*#personalTitle
