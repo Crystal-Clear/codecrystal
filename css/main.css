@@ -69,19 +69,50 @@ body {
   float: left;
 }
 
-#badgeLink {
-  float: right;
-  /*border: 2px solid black;*/
-  background-color: #5CB3FF;
-  color: white;
-  height:100%;
-  font-size: 0.95em;
-}
-
 #repoList {
   margin-left: auto;
   margin-right: auto;
 }
+
+.show-badge {
+  text-align: center;
+  display: none;
+}
+  .badge-markdown-container {
+    text-align: center;
+    display: inherit;
+  }
+    .badgeLink {
+      float: right;
+      /*border: 2px solid black;*/
+      background-color: #5CB3FF;
+      color: white;
+      height:100%;
+      font-size: 0.95em;
+      display: inherit;
+    }
+  .badge-container {
+    display: inherit;
+    text-align: center;
+  }
+    .blue-title {
+      position:relative;
+      padding:6px 15px;
+      left:-8px;
+      border:2px solid #207cca;
+      background-color:#207cca;
+      color:#fafafa;
+      font-size: 15px;
+      display: inherit;
+      height: 4em;
+      width: 6em;
+    }
+    .badgeHolder {
+      display: inherit;
+    }
+
+
+
 
 /*#personalTitle
 
