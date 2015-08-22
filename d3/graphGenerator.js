@@ -57,7 +57,7 @@ function loadIn(JSONgraphObject){
       .append("svg:svg")
         .attr("class","crystal")
       .append('svg:g')
-        .call(d3.behavior.zoom().on("zoom", redraw))
+        .call(d3.behavior.zoom().on("zoom", redraw)).on("dblclick.zoom", null)
       .append('svg:g');
 
   var svgPinned = d3.select(".pinned-nodes-container").append("svg:svg")
