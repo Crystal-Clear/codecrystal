@@ -80,35 +80,40 @@ body {
 }
   .badge-markdown-container {
     text-align: center;
-    display: inherit;
+    display: inline-block;
+    margin: 1em;
   }
+    .readme-markdown {
+      left: 45px;
+    }
     .badgeLink {
       float: right;
       /*border: 2px solid black;*/
       background-color: #5CB3FF;
       color: white;
-      height:100%;
+      height:auto;
+      width: 70%;
       font-size: 0.95em;
-      display: inherit;
+      display: inline-block;
+      text-align: center;
     }
   .badge-container {
-    display: inherit;
+    display: block;
     text-align: center;
   }
     .blue-title {
       position:relative;
       padding:6px 15px;
-      left:-8px;
       border:2px solid #207cca;
       background-color:#207cca;
       color:#fafafa;
       font-size: 15px;
-      display: inherit;
-      height: 4em;
-      width: 6em;
+      display: inline-block;
+      text-align: center;
+
     }
     .badgeHolder {
-      display: inherit;
+      display: inline-block;
     }
 
 
