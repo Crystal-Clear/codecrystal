@@ -5,7 +5,7 @@ A tool to create a visualisation of the file structure of your Javscript GitHub 
 image in your READme
 
 
-[![Codecrystal](https://img.shields.io/badge/code-crystal-5CB3FF.svg)](https://codecrystal.herokuapp.com/graph/Crystal-Clear/codecrystal/master)
+[![Codecrystal](https://img.shields.io/badge/code-crystal-5CB3FF.svg)](https://codecrystal.herokuapp.com/crystalise/Crystal-Clear/codecrystal/master)
 
 ##Why
 
